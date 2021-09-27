@@ -5,6 +5,7 @@ const Dialogs = () => {
     return (
         <div className={s.dialog}>
             fffff
+            fffff
         </div>
     );
 };
