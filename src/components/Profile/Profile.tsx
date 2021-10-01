@@ -1,17 +1,17 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
-import s from './Profile.module.scss';
+import ProfileInfo from "./MyPosts/ProfileInfo/ProfileInfo";
+import {addPost, ProfilePage} from "../../redux/state";
 
-const Profile = () => {
+type Props = {
+    state: ProfilePage
+}
+
+const Profile = ({ state: {posts, newPostText} }: Props) => {
     return (
         <div >
-            <div>
-                <img src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&h=350' />
-            </div>
-            <div>
-                ava + description
-            </div>
-            <MyPosts />
+            <ProfileInfo/>
+            <MyPosts posts={posts} newPostText={newPostText} addPost={addPost}/>
         </div>
     )
 }
