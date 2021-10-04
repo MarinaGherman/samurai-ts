@@ -1,3 +1,4 @@
+//types
 export type Posts = {
     id: number
     message: string
@@ -27,12 +28,26 @@ export type StateType =  {
 
 export type ChangeNewPostTextType = any
 
-//store
+
 
 export type DispatchType = {
     type: string,
     text?: string
 }
+
+
+//store
+export let ADD_POST = 'ADD-POST';
+export let UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
+
+export let addPostActionCreator = () => ({
+    type: ADD_POST
+})
+export let updateNewPostTextActionCreator =() => ({
+        type: UPDATE_NEW_POST_TEXT,
+        text: ''
+})
 
 let store = {
     _state : {
@@ -67,7 +82,7 @@ let store = {
     },
 
     dispatch(action: DispatchType) {
-        if(action.type === "ADD-POST") {
+        if(action.type === ADD_POST) {
 
             let newPost = {
                 id:5,
@@ -77,8 +92,9 @@ let store = {
             this._state.profilePage.posts.push(newPost)
             this.callSubscriber(this._state);
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            if (action.text)
+            if (action.text !== undefined) {
                 this._state.profilePage.newPostText = action.text;
+            }
             this.callSubscriber(this._state)
         }
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
-import {Posts} from "../../../redux/state";
+import {addPostActionCreator, Posts, UPDATE_NEW_POST_TEXT, updateNewPostTextActionCreator} from "../../../redux/state";
 import store from "../../../redux/state";
 
 type Props = {
@@ -15,20 +15,14 @@ const MyPosts = ({posts, newPostText}: Props) => {
     let textareaRef: any = React.createRef();
 
     let handleOnAddPost = () => {
-        store.dispatch({
-            type: 'ADD-POST'
-        })
-        store.dispatch({
-            type: 'UPDATE-NEW-POST-TEXT',
-            text: ''
-        });
+        store.dispatch(addPostActionCreator())
+        store.dispatch(updateNewPostTextActionCreator());
     }
     let handleOnPostChange = () => {
         store.dispatch({
-            type: 'UPDATE-NEW-POST-TEXT',
+            type: UPDATE_NEW_POST_TEXT,
             text: textareaRef.current.value
         });
-
     }
 
     return (
