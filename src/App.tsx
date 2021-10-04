@@ -14,7 +14,7 @@ export type Props = {
 }
 
 const App = ({state}:Props) => {
-
+    console.log(state)
   return (
       <BrowserRouter>
           <div className={s.appWrapper}>

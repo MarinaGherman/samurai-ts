@@ -1,23 +1,24 @@
 import React from 'react';
 import './index.css';
-import { subscribe} from "./redux/state";
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import state from "./redux/state";
+import store, {StateType} from "./redux/state";
 
- let rerenderEntireTree=() => {
+ let callSubscriber=(state: StateType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App state={state} />
+            <App state={store.getState()}
+                 // addPost={store.addPost}
+            />
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
-rerenderEntireTree();
+callSubscriber(store.getState());
 
- subscribe(rerenderEntireTree);
+store.subscribe(callSubscriber);
 
 
 // If you want to start measuring performance in your app, pass a function
