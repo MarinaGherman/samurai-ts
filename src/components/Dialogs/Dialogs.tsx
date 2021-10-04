@@ -1,7 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './Dialogs.module.scss';
-import {DialogType, MessageType, MessagesPageType} from "../../redux/state";
+import store, {
+    DialogType,
+    MessageType,
+    MessagesPageType,
+    updateNewMessageBodyActionCreator,
+    sendMessageActionCreator
+} from "../../redux/state";
 
 const DialogItem = ({name, id}: DialogType) => {
     return(
@@ -23,18 +29,38 @@ export type Props = {
     state: MessagesPageType
 }
 
-const Dialogs = ({state: {dialogs, messages}}:Props) => {
+const Dialogs = ({state: {dialogs, messages,newMessageBody }}:Props) => {
+    let dialogsElements =  dialogs.map(dialog=> <DialogItem name={dialog.name} id={dialog.id}/>)
+    let messagesElements = messages.map(dialog=> <Message id={dialog.id} message={dialog.message}/>)
+    let MessageBody = newMessageBody
+
+
+    let onSendMessageClick = () => {
+        store.dispatch(sendMessageActionCreator())
+    }
+    let onNewMessageChange = (e: any) => {
+        let body = e.target.value
+        store.dispatch(updateNewMessageBodyActionCreator(body))
+
+    }
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {
-                    dialogs.map(dialog=> <DialogItem name={dialog.name} id={dialog.id}/>)
-                }
+                {dialogsElements}
             </div>
             <div className={s.messages}>
-                {
-                    messages.map(dialog=> <Message message={dialog.message}/>)
-                }
+                {messagesElements}
+                <div>
+                    <div>
+                        <textarea value={MessageBody}
+                                  onChange={onNewMessageChange}
+                                  placeholder="enter your mess"
+                        />
+                    </div>
+                    <div>
+                        <button onClick={onSendMessageClick}>Add Message</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

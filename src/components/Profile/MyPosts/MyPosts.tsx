@@ -16,7 +16,7 @@ const MyPosts = ({posts, newPostText}: Props) => {
 
     let handleOnAddPost = () => {
         store.dispatch(addPostActionCreator())
-        store.dispatch(updateNewPostTextActionCreator());
+        store.dispatch(updateNewPostTextActionCreator(""));
     }
     let handleOnPostChange = () => {
         store.dispatch({
