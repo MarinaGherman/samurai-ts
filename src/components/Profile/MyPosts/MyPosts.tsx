@@ -15,12 +15,19 @@ const MyPosts = ({posts, newPostText}: Props) => {
     let textareaRef: any = React.createRef();
 
     let handleOnAddPost = () => {
-        let text = textareaRef.current.value;
-        store.addPost(text)
-        store.updateNewPostText('');
+        store.dispatch({
+            type: 'ADD-POST'
+        })
+        store.dispatch({
+            type: 'UPDATE-NEW-POST-TEXT',
+            text: ''
+        });
     }
     let handleOnPostChange = () => {
-        store.updateNewPostText(textareaRef.current.value);
+        store.dispatch({
+            type: 'UPDATE-NEW-POST-TEXT',
+            text: textareaRef.current.value
+        });
 
     }
 
@@ -29,7 +36,7 @@ const MyPosts = ({posts, newPostText}: Props) => {
             My posts
             <div>
                 <textarea onChange={handleOnPostChange} value={newPostText} ref={textareaRef}/>
-                <button onClick={handleOnAddPost}>Add post aa</button>
+                <button onClick={handleOnAddPost}>Add post</button>
             </div>
             <div className={s.posts}>
                 {

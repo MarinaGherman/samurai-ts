@@ -25,14 +25,17 @@ export type StateType =  {
     messagesPage: MessagesPageType
 }
 
-export type AddPostType = any
-
 export type ChangeNewPostTextType = any
 
 //store
 
+export type DispatchType = {
+    type: string,
+    text?: string
+}
+
 let store = {
-     _state : {
+    _state : {
         profilePage: {
             posts: [
                 {id:1, message: "Hi, how are you?", likeCount: 12},
@@ -54,27 +57,31 @@ let store = {
         }
     },
     getState() {
-         return this._state
+        return this._state
     },
-     callSubscriber (state: StateType) {
+    callSubscriber (state: StateType) {
         console.log(state)
-     },
-     addPost(postMessage: string) {
-
-        let newPost = {
-            id:5,
-            message: this._state.profilePage.newPostText,
-            likeCount: 0
-        };
-         this._state.profilePage.posts.push(newPost)
-        this.callSubscriber(this._state);
     },
-     updateNewPostText(text: string) {
-        this._state.profilePage.newPostText = text;
-        this.callSubscriber(this._state)
-     },
-     subscribe(observer:any){
+    subscribe(observer:any){
         this.callSubscriber = observer
+    },
+
+    dispatch(action: DispatchType) {
+        if(action.type === "ADD-POST") {
+
+            let newPost = {
+                id:5,
+                message: this._state.profilePage.newPostText,
+                likeCount: 0
+            };
+            this._state.profilePage.posts.push(newPost)
+            this.callSubscriber(this._state);
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            if (action.text)
+                this._state.profilePage.newPostText = action.text;
+            this.callSubscriber(this._state)
+        }
+
     }
 }
 
