@@ -2,8 +2,12 @@ import React from 'react';
 
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
-import {addPostActionCreator, Posts, UPDATE_NEW_POST_TEXT, updateNewPostTextActionCreator} from "../../../redux/state";
-import store from "../../../redux/state";
+import store, {Posts} from "../../../redux/state";
+import {
+    addPostActionCreator,
+    UPDATE_NEW_POST_TEXT,
+    updateNewPostTextActionCreator
+} from "../../../redux/profileReducer";
 
 type Props = {
     posts : Array<Posts>

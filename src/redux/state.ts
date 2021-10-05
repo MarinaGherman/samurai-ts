@@ -1,4 +1,8 @@
-//types
+
+import dialogsReducer from "./dialogsReducer";
+import profileReducer from "./profileReducer";
+import sidebarReducer from "./sidebarReducer";
+
 export type Posts = {
     id: number
     message: string
@@ -37,30 +41,6 @@ export type DispatchType = {
     text?: string
 }
 
-
-//action type
-export const ADD_POST = 'ADD-POST';
-export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-export const SEND_MESSAGE = 'SEND-MESSAGE';
-
-//action creators
-export let addPostActionCreator = () => ({
-    type: ADD_POST
-})
-export let updateNewPostTextActionCreator =(text:string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    text
-})
-export let sendMessageActionCreator = () => ({
-    type: SEND_MESSAGE
-})
-export let updateNewMessageBodyActionCreator =(text:string) => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    text
-})
-
-
 //store
 let store = {
     _state : {
@@ -83,7 +63,8 @@ let store = {
                 {id: 3, message: "Sendoff"}
             ],
             newMessageBody: ''
-        }
+        },
+        sidebar: {}
     },
     getState() {
         return this._state
@@ -96,32 +77,11 @@ let store = {
     },
 
     dispatch(action: DispatchType) {
-        if(action.type === ADD_POST) {
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.messagesPage = dialogsReducer(this._state.messagesPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
-            let newPost = {
-                id:5,
-                message: this._state.profilePage.newPostText,
-                likeCount: 0
-            };
-            this._state.profilePage.posts.push(newPost)
-            this.callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            if (action.text !== undefined) {
-                this._state.profilePage.newPostText = action.text;
-                this.callSubscriber(this._state);
-            }
-            this.callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            if(action.text !== undefined) {
-                this._state.messagesPage.newMessageBody = action.text;
-                this.callSubscriber(this._state);
-            }
-        } else  if (action.type === SEND_MESSAGE) {
-            let text = this._state.messagesPage.newMessageBody
-            this._state.messagesPage.messages.push({id: 4, message: text});
-            this._state.messagesPage.newMessageBody = ''
-            this.callSubscriber(this._state);
-        }
+        this.callSubscriber(this._state);
     }
 }
 

@@ -4,10 +4,9 @@ import s from './Dialogs.module.scss';
 import store, {
     DialogType,
     MessageType,
-    MessagesPageType,
-    updateNewMessageBodyActionCreator,
-    sendMessageActionCreator
+    MessagesPageType
 } from "../../redux/state";
+import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogsReducer";
 
 const DialogItem = ({name, id}: DialogType) => {
     return(
@@ -58,7 +57,7 @@ const Dialogs = ({state: {dialogs, messages,newMessageBody }}:Props) => {
                         />
                     </div>
                     <div>
-                        <button onClick={onSendMessageClick}>Add Message</button>
+                        <button onClick={onSendMessageClick}>A  dd Message</button>
                     </div>
                 </div>
             </div>
