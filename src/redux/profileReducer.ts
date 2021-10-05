@@ -1,3 +1,6 @@
+import {DispatchType, ProfilePage} from "./state";
+
+
 export const ADD_POST = 'ADD-POST';
 export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
@@ -9,8 +12,7 @@ export let updateNewPostTextActionCreator =(text:string) => ({
     text
 })
 
-
-const profileReducer = (state:any,action:any) => {
+const profileReducer = (state:ProfilePage,action:DispatchType) => {
 
     switch (action.type) {
         case  ADD_POST:
