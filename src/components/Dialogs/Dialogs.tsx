@@ -5,7 +5,7 @@ import store, {
     DialogType,
     MessageType,
     MessagesPageType
-} from "../../redux/state";
+} from "../../redux/store";
 import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogsReducer";
 
 const DialogItem = ({name, id}: DialogType) => {

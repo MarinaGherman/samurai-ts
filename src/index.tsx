@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store, {StateType} from "./redux/state";
+import store, {StateType} from "./redux/store";
 
- let callSubscriber=(state: StateType) => {
+ let callSubscriber=(state:StateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <App state={store.getState()}
@@ -18,7 +18,10 @@ import store, {StateType} from "./redux/state";
 }
 callSubscriber(store.getState());
 
-store.subscribe(callSubscriber);
+store.subscribe(() => {
+    let state = store.getState()
+    callSubscriber(state)
+});
 
 
 // If you want to start measuring performance in your app, pass a function

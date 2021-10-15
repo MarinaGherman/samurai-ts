@@ -2,7 +2,7 @@ import React from 'react';
 
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
-import store, {Posts} from "../../../redux/state";
+import store, {Posts} from "../../../redux/store";
 import {
     addPostActionCreator,
     UPDATE_NEW_POST_TEXT,

@@ -1,4 +1,4 @@
-import { DispatchType, MessagesPageType} from "./state";
+import { DispatchType, MessagesPageType} from "./store";
 
 export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 export const SEND_MESSAGE = 'SEND-MESSAGE';
@@ -11,7 +11,21 @@ export let updateNewMessageBodyActionCreator =(text:string) => ({
     text
 })
 
- const dialogsReducer = (state:MessagesPageType,action:DispatchType) => {
+let initialState= {
+    dialogs: [
+        {id:1, name: "Andrei"},
+        {id:2, name: "Marina"},
+        {id:3, name: "Sveta"}
+    ],
+    messages: [
+        {id: 1, message: "rgergerge"},
+        {id: 2, message: "Magdrfgdrgrina"},
+        {id: 3, message: "Sendoff"}
+    ],
+    newMessageBody: ''
+}
+
+ const dialogsReducer = (state:MessagesPageType =initialState,action:DispatchType) => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             if (action.text !== undefined) {

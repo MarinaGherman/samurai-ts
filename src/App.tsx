@@ -6,7 +6,7 @@ import Dialogs from "./components/Dialogs/Dialogs";
 
 import {BrowserRouter, Route} from 'react-router-dom';
 import s from './App.module.scss'
-import { StateType} from "./redux/state";
+import { StateType} from "./redux/store";
 
 
 export type Props = {
