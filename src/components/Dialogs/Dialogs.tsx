@@ -1,13 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './Dialogs.module.scss';
-import store, {
+import  {
     DialogType,
-    MessageType,
-    MessagesPageType
 } from "../../redux/store";
-import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogsReducer";
-
 const DialogItem = ({name, id}: DialogType) => {
     return(
         <div className={`${s.dialog} ${s.active}`}>
@@ -16,31 +12,38 @@ const DialogItem = ({name, id}: DialogType) => {
     )
 }
 
-const Message = ({message}: MessageType) => {
+type PropsType = any
+
+const Message = (props: PropsType) => {
     return (
         <div className={s.message}>
-            {message}
+            {props.message}
         </div>
     )
 }
 
 export type Props = {
-    state: MessagesPageType
+    updateNewMessageBody?:any
+    sendMessage?:any
+    messagePage?:any
 }
 
-const Dialogs = ({state: {dialogs, messages,newMessageBody }}:Props) => {
-    let dialogsElements =  dialogs.map(dialog=> <DialogItem name={dialog.name} id={dialog.id}/>)
-    let messagesElements = messages.map(dialog=> <Message id={dialog.id} message={dialog.message}/>)
-    let MessageBody = newMessageBody
+const Dialogs = (props:Props) => {
+
+    let state = props.messagePage;
+
+    let dialogsElements =  state.dialogs.map((dialog: any)=> <DialogItem name={dialog.name} id={dialog.id}/>)
+    let messagesElements = state.messages.map((dialog: any)=> <Message id={dialog.id} message={dialog.message}/>)
+    let MessageBody = state.newMessageBody
 
 
     let onSendMessageClick = () => {
-        store.dispatch(sendMessageActionCreator())
+        props.sendMessage()
     }
     let onNewMessageChange = (e: any) => {
         let body = e.target.value
-        store.dispatch(updateNewMessageBodyActionCreator(body))
-
+        props.updateNewMessageBody(body);
+        // store.dispatch(updateNewMessageBodyActionCreator(body))
     }
     return (
         <div className={s.dialogs}>
@@ -57,7 +60,7 @@ const Dialogs = ({state: {dialogs, messages,newMessageBody }}:Props) => {
                         />
                     </div>
                     <div>
-                        <button onClick={onSendMessageClick}>A  dd Message</button>
+                        <button onClick={onSendMessageClick}>Add Message</button>
                     </div>
                 </div>
             </div>

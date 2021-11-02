@@ -2,44 +2,41 @@ import React from 'react';
 
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
-import store, {Posts} from "../../../redux/store";
-import {
-    addPostActionCreator,
-    UPDATE_NEW_POST_TEXT,
-    updateNewPostTextActionCreator
-} from "../../../redux/profileReducer";
 
-type Props = {
-    posts : Array<Posts>
-    newPostText: string
-}
+type Props = any
 
-const MyPosts = ({posts, newPostText}: Props) => {
+const MyPosts = (props: Props) => {
 
-    let textareaRef: any = React.createRef();
+    let postElements =
+        props.posts.map((p:any)=> <Post message={p.message} likesCount={p.likeCount}/>)
 
-    let handleOnAddPost = () => {
-        store.dispatch(addPostActionCreator())
-        store.dispatch(updateNewPostTextActionCreator(""));
+    // let textareaRef: any = React.createRef();
+    let newPostElement: any = React.createRef();
+
+    let onAddPost = () => {
+        props.addPost();
+        // store.dispatch(addPostActionCreator())
+        // store.dispatch(updateNewPostTextActionCreator(""));
     }
-    let handleOnPostChange = () => {
-        store.dispatch({
-            type: UPDATE_NEW_POST_TEXT,
-            text: textareaRef.current.value
-        });
+    let onPostChange = () => {
+        let text = newPostElement.current.value;
+        props.updateNewPostText(text)
+
+        // store.dispatch({
+        //     type: UPDATE_NEW_POST_TEXT,
+        //     text: newPostElement.current.value
+        // });
     }
 
     return (
         <div className={s.posts}>
             My posts
             <div>
-                <textarea onChange={handleOnPostChange} value={newPostText} ref={textareaRef}/>
-                <button onClick={handleOnAddPost}>Add post</button>
+                <textarea onChange={onPostChange} value={props.newPostText} ref={newPostElement}/>
+                <button onClick={onAddPost}>Add post</button>
             </div>
             <div className={s.posts}>
-                {
-                    posts.map(dialog=> <Post message={dialog.message} likesCount={dialog.id} /> )
-                }
+                {postElements}
             </div>
         </div>
     )

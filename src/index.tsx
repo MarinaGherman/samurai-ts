@@ -4,23 +4,32 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store, {StateType} from "./redux/store";
+import store from "./redux/redux-store";
+import {BrowserRouter} from "react-router-dom";
+import StoreContext from './StoreContext';
 
- let callSubscriber=(state:StateType) => {
+let renderEntireTree=(state: any) => {
+
     ReactDOM.render(
         <React.StrictMode>
-            <App state={store.getState()}
-                 // addPost={store.addPost}
-            />
+            <BrowserRouter>
+
+                <StoreContext.Provider
+                    // @ts-ignore
+                    value={store}>
+                    <App
+                    />
+                </StoreContext.Provider>
+            </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
-callSubscriber(store.getState());
+renderEntireTree(store.getState());
 
 store.subscribe(() => {
     let state = store.getState()
-    callSubscriber(state)
+    renderEntireTree(state)
 });
 
 
