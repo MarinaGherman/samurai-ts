@@ -30,8 +30,7 @@ const MyPostsContainer = (props:any) => {
                              posts={store.getState().profileReducer.posts}
                         // @ts-ignore
                              newPostText={store.getState().profileReducer.newPostText} />
-                )
-            }
+                )}
         }
         </StoreContext.Consumer>
             )
