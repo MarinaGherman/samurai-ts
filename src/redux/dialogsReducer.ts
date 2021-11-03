@@ -26,6 +26,7 @@ let initialState= {
 }
 
  const dialogsReducer = (state:MessagesPageType =initialState,action:DispatchType) => {
+     console.log(action)
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             if (action.text !== undefined) {

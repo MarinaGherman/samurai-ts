@@ -25,12 +25,12 @@ const Message = (props: PropsType) => {
 export type Props = {
     updateNewMessageBody?:any
     sendMessage?:any
-    messagePage?:any
+    dialogsPage?:any
 }
 
 const Dialogs = (props:Props) => {
 
-    let state = props.messagePage;
+    let state = props.dialogsPage;
 
     let dialogsElements =  state.dialogs.map((dialog: any)=> <DialogItem name={dialog.name} id={dialog.id}/>)
     let messagesElements = state.messages.map((dialog: any)=> <Message id={dialog.id} message={dialog.message}/>)

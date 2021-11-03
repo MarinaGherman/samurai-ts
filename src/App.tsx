@@ -6,11 +6,6 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import s from './App.module.scss'
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
-
-
-
-
-
 const App = () => {
 
   return (
