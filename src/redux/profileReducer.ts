@@ -1,5 +1,3 @@
-import {DispatchType, ProfilePage} from "./store";
-
 
 export const ADD_POST = 'ADD-POST';
 export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -20,7 +18,7 @@ let initialState = {
     newPostText: ''
 }
 
-const profileReducer = (state:ProfilePage = initialState,action:DispatchType) => {
+const profileReducer = (state:any = initialState,action:any) => {
 
     switch (action.type) {
         case  ADD_POST: {
@@ -29,20 +27,18 @@ const profileReducer = (state:ProfilePage = initialState,action:DispatchType) =>
                 message: state.newPostText,
                 likeCount: 0
             };
-            let stateCopy = {...state}
-            stateCopy.posts = [...state.posts];
-            stateCopy.posts.push(newPost);
-
-
-            return stateCopy;
+            return  {
+                ...state,
+                posts : [...state.posts, newPost],
+                newPostText: ''
+            }
         }
 
         case UPDATE_NEW_POST_TEXT: {
-            let stateCopy = {...state}
-            if (action.text != null) {
-                stateCopy.newPostText = action.text;
+            return {
+                ...state,
+                newPostText: action.text
             }
-            return stateCopy
         }
         default:
             return state;

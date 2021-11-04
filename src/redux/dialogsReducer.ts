@@ -1,4 +1,3 @@
-import { DispatchType, MessagesPageType} from "./store";
 
 export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 export const SEND_MESSAGE = 'SEND-MESSAGE';
@@ -25,21 +24,23 @@ let initialState= {
     newMessageBody: ''
 }
 
- const dialogsReducer = (state:MessagesPageType =initialState,action:DispatchType) => {
-     console.log(action)
+ const dialogsReducer = (state:any =initialState,action:any) => {
+
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
-            if (action.text !== undefined) {
-                state.newMessageBody = action.text;
-            }
-            return state;
+            return {
+                ...state,
+                newMessageBody:action.body
+            };
+
 
         case SEND_MESSAGE:
-            let text = state.newMessageBody
-            state.messages.push({id: 4, message: text});
-            state.newMessageBody = ''
-
-            return state;
+            let body = state.newMessageBody;
+           return {
+               ...state,
+               newMessageBody:'',
+               messages: [...state.messages, {id:6, message:body}]
+           };
         default:
             return state;
     }
