@@ -5,20 +5,23 @@ import userPhoto from '../../assets/images/avatar.png'
 
 
 
-const Users = (props: any) => {
-    let getUsers =() => {
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then((response: any) => {
-                    props.setUsers(response.data.items)
-                });
-        }
+
+class Users extends React.Component {
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then((response: any) => {
+                // @ts-ignore
+                this.props.setUsers(response.data.items)
+            });
     }
-    return (
-        <div>
-            <button onClick={getUsers}>Get Users</button>
+
+    render() {
+
+        return <div>
+
             {
-                props.users.map((m: any) => <div key={m.id}>
+                // @ts-ignore
+                this.props.users.map((m: any) => <div key={m.id}>
                     <span>
                         <div className={styles.users}>
                             <img className={styles.usersPhoto}
@@ -28,10 +31,12 @@ const Users = (props: any) => {
                         <div>
                             {m.followed
                                 ? <button onClick={() => {
-                                    props.unfollow(m.id)
+                                    // @ts-ignore
+                                    this.props.unfollow(m.id)
                                 }}>UnFollow</button>
                                 : <button onClick={() => {
-                                    props.follow(m.id)
+                                    // @ts-ignore
+                                    this.props.follow(m.id)
                                 }}>Follow</button>
                             }
                         </div>
@@ -49,7 +54,8 @@ const Users = (props: any) => {
                 </div>)
             }
         </div>
-    );
-};
+    }
+}
+
 
 export default Users;
