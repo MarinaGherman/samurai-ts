@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
 import { connect } from 'react-redux';
-import {followAC, setCurrentPageAC, setUsersAC, toggleIsFetchingAC, unfollowAC} from "../../redux/usersReducer";
 import axios from "axios";
 import Users from "./Users";
 import Loader from "../common/Loader";
+import {follow, setCurrentPage, setUsers, toggleIsFetching, unfollow} from "../../redux/usersReducer";
 
 
 class UsersContainer extends React.Component {
@@ -74,25 +74,11 @@ let mapStateToProps = (state:any) => {
         isFetching: state.usersPage.isFetching
     }
 }
-let mapDispatchToProps = (dispatch:any) => {
-    return {
-        follow: (userId: any) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: any) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: any) => {
-            dispatch(setUsersAC(users))
 
-        },
-        setCurrentPage: (pageNumber:number) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching))
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    toggleIsFetching
+})(UsersContainer);
