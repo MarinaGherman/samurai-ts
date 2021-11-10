@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from "./users.module.css";
 import userPhoto from "../../assets/images/avatar.png";
+import {NavLink} from 'react-router-dom';
 
-const Users = (props:any) => {
+const Users = (props: any) => {
 
     // @ts-ignore
-    let pagesCount:number = Math.ceil(props.totalUsersCount / props.pagesSize);
+    let pagesCount: number = Math.ceil(props.totalUsersCount / props.pagesSize);
 
-    let pages:any = [];
-    for(let i=1; i <= pagesCount; i++) {
+    let pages: any = [];
+    for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
 
@@ -16,10 +17,10 @@ const Users = (props:any) => {
         <div>
             <div>
                 {
-                    pages.map((m:number) => {
+                    pages.map((m: number) => {
                         // @ts-ignore
                         return <span
-                            onClick={(e:any) => props.onPageChanged(m)}
+                            onClick={(e: any) => props.onPageChanged(m)}
                             // @ts-ignore
                             className={props.currentPage === m && styles.selectedPage}>
                             {m}
@@ -33,9 +34,11 @@ const Users = (props:any) => {
                 props.users.map((m: any) => <div key={m.id}>
                     <span>
                         <div className={styles.users}>
-                            <img className={styles.usersPhoto}
-                                 src={m.photos.small != null ? m.photos.small : userPhoto}
-                                 alt=""/>
+                            <NavLink to={'/profile/' + m.id}>
+                                <img className={styles.usersPhoto}
+                                     src={m.photos.small != null ? m.photos.small : userPhoto}
+                                     alt=""/>
+                            </NavLink>
                         </div>
                         <div>
                             {m.followed

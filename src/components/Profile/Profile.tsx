@@ -7,7 +7,11 @@ type PropsType = any
 const Profile = (props:PropsType) => {
     return (
         <div >
-            <ProfileInfo/>
+
+            <ProfileInfo
+                // @ts-ignore
+                profile={props.profile}
+            />
             <MyPostsContainer />
         </div>
     )
