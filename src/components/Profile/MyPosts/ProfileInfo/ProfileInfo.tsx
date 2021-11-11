@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './ProfileInfo.module.scss'
 import Loader from "../../../common/Loader";
+import avatar from './../../../../assets/images/avatar.png'
 import lookJob from "../../../../assets/images/lookJob.png";
 import facebook from "../../../../assets/images/fb.png";
 import website from "../../../../assets/images/global.png";
@@ -33,15 +34,18 @@ const ProfileInfo = (props:any) => {
     return (
         <div className={s.main}>
             <div>
-                <img src={props.profile.photos.large} />
+                {!props.profile.photos.large ? <img src={avatar} /> :<img src={props.profile.photos.large} />}
                 {
-                    props.profile.lookingForAJob === true ? <div className={s.jobBlock}>
+                    props.profile.lookingForAJob === true
+                        ?
+                        <div className={s.jobBlock}>
                         <div className={s.iconJobBlock}>
                             <img className={s.icon} src={lookJob} />
                         </div>
                         <h4>Описание работы</h4>
                         <p>{props.profile.lookingForAJobDescription}</p>
-                    </div> : ''
+                    </div>
+                        : ''
                 }
             </div>
             <div className={s.profileInfo}>
