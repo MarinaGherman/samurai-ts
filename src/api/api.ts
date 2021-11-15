@@ -10,11 +10,13 @@ const instance = axios.create({
     }
 })
 //когда будет кей - заменить аксиос на инстанс and delete baseURL +
-export const getUsers:any = (currentPage =1,pageSize = 10) => {
-    return axios.get(baseURL + `users?page=${currentPage}&count=${pageSize}`
+export const usersApi = {
+    getUsers(currentPage =1,pageSize = 10)  {
+        return axios.get(baseURL + `users?page=${currentPage}&count=${pageSize}`
         ).then((response:any) =>{
-        return response.data
-    });
+            return response.data
+        });
+    }
 }
 
 

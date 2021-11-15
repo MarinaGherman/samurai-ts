@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Users from "./Users";
 import Loader from "../common/Loader";
 import {follow, setCurrentPage, setUsers, toggleIsFetching, unfollow} from "../../redux/usersReducer";
-import {getUsers} from "../../api/api";
+import {usersApi} from "../../api/api";
 
 
 class UsersContainer extends React.Component {
@@ -12,7 +12,7 @@ class UsersContainer extends React.Component {
         // @ts-ignore
         this.props.toggleIsFetching(true)
         // @ts-ignore
-        getUsers(this.props.currentPage, this.props.pageSize)
+        usersApi.getUsers(this.props.currentPage, this.props.pageSize)
             .then((data: any) => {
                 // @ts-ignore
                 this.props.toggleIsFetching(false)
@@ -27,7 +27,7 @@ class UsersContainer extends React.Component {
         // @ts-ignore
         this.props.toggleIsFetching(true)
         // @ts-ignore
-        getUsers(pageNumber, this.props.pageSize)
+        usersApi.getUsers(pageNumber, this.props.pageSize)
             .then((data: any) => {
                 // @ts-ignore
                 this.props.toggleIsFetching(false)
