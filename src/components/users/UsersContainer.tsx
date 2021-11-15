@@ -1,22 +1,23 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from "axios";
 import Users from "./Users";
 import Loader from "../common/Loader";
 import {follow, setCurrentPage, setUsers, toggleIsFetching, unfollow} from "../../redux/usersReducer";
+import {getUsers} from "../../api/api";
 
 
 class UsersContainer extends React.Component {
     componentDidMount() {
         // @ts-ignore
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${`this.props.currentPage`}&count=${`this.props.pagesSize`}`)
-            .then((response: any) => {
+        // @ts-ignore
+        getUsers(this.props.currentPage, this.props.pageSize)
+            .then((data: any) => {
                 // @ts-ignore
                 this.props.toggleIsFetching(false)
                 // @ts-ignore
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             });
     }
 
@@ -25,12 +26,13 @@ class UsersContainer extends React.Component {
         this.props.setCurrentPage(pageNumber)
         // @ts-ignore
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${`this.props.pagesSize`}`)
-            .then((response: any) => {
+        // @ts-ignore
+        getUsers(pageNumber, this.props.pageSize)
+            .then((data: any) => {
                 // @ts-ignore
                 this.props.toggleIsFetching(false)
                 // @ts-ignore
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             });
     }
 
