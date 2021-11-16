@@ -9,7 +9,7 @@ const instance = axios.create({
         'API-KEY': 'd4df065f-fd45-48fe-adda-b1fec39821b3'
     }
 })
-//когда будет кей - заменить аксиос на инстанс and delete baseURL +
+
 export const usersApi = {
     getUsers(currentPage =1,pageSize = 10)  {
         return instance.get( `users?page=${currentPage}&count=${pageSize}`
