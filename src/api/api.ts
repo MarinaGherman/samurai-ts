@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const  baseURL = 'https://social-network.samuraijs.com/api/1.0/';
+
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -16,7 +16,22 @@ export const usersApi = {
         ).then((response:any) =>{
             return response.data
         });
+    },
+
+    deleteFollowers(id:number) {
+        return instance.delete(`follow/${id}`)
+            .then((response:any) =>  {
+            return response.data
+        })
+    },
+    getFollower(id:number) {
+        return instance.post(`follow/${id}`)
+            .then((response:any) =>  {
+                return response.data
+            })
     }
 }
+
+
 
 
