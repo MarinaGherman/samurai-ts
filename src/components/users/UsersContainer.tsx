@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Users from "./Users";
 import Loader from "../common/Loader";
 import {
-    getUsersThunkCreator,
+    getUsers,
     follow,
     setCurrentPage,
     setTotalCurrentCount,
@@ -13,7 +13,7 @@ import {
     toggleIsFetching,
     unfollow,
 } from "../../redux/usersReducer";
-import {usersApi} from "../../api/api";
+
 
 
 class UsersContainer extends React.Component {
@@ -84,5 +84,5 @@ export default connect(mapStateToProps, {
     setTotalCurrentCount,
     toggleIsFetching,
     toggleFollowingProgress,
-    getUsers: getUsersThunkCreator
+    getUsers
 })(UsersContainer);
