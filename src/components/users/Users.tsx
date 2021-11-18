@@ -2,9 +2,6 @@ import React from 'react';
 import styles from "./users.module.css";
 import userPhoto from "../../assets/images/avatar.png";
 import {NavLink} from 'react-router-dom';
-import axios from "axios";
-import {usersApi} from "../../api/api";
-import {toggleFollowingProgress} from "../../redux/usersReducer";
 
 const Users = (props: any) => {
 
@@ -23,7 +20,7 @@ const Users = (props: any) => {
                     pages.map((m: number) => {
                         // @ts-ignore
                         return <span
-                            onClick={(e: any) => props.onPageChanged(m)}
+                            onClick={() => props.onPageChanged(m)}
                             // @ts-ignore
                             className={props.currentPage === m && styles.selectedPage}>
                             {m}
@@ -46,45 +43,11 @@ const Users = (props: any) => {
                         <div>
                             {m.followed
                                 ? <button disabled={props.followingInProgress.some((id:number) => id === m.id)}
-                                          onClick={() => {
-                                    props.toggleFollowingProgress(true, m.id)
-                                    usersApi.deleteFollowers(m.id)
-                                        .then((data:any) => {
-                                            if(data.resultCode === 0) {
-                                                props.unfollow(m.id)
-                                            }
-                                            props.toggleFollowingProgress(false, m.id)
-                                        })
-
-                                    // @ts-ignore
-                                    // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${m.id}`, {}, {
-                                    //     withCredentials: true,
-                                    //     headers: {
-                                    //         'API-KEY': 'd4df065f-fd45-48fe-adda-b1fec39821b3'
-                                    //     }
-                                    // })
-                                    //     .then((response: any) => {
-                                    //         if(response.data.resultCode === 0) {
-                                    //             props.unfollow(m.id)
-                                    //         }
-                                    //     });
-                                    // @ts-ignore
-
-                                }}>UnFollow</button>
+                                          onClick={() => {props.unfollow(m.id)}}>UnFollow</button>
                                 : <button  disabled={props.followingInProgress.some((id:number) => id === m.id)}
-                                           onClick={() => {
-
-                                    props.toggleFollowingProgress(true, m.id)
-                                    usersApi.getFollower(m.id)
-                                        .then((data:any) => {
-                                            if(data.resultCode === 0) {
-                                                props.follow(m.id)
-                                            }
-                                            props.toggleFollowingProgress(false, m.id)
-                                        })
-
-                                }}>Follow</button>
+                                           onClick={() => {props.follow(m.id)}}>Follow</button>
                             }
+
                         </div>
                     </span>
                     <span>

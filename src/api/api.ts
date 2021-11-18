@@ -18,14 +18,14 @@ export const usersApi = {
         });
     },
 
-    deleteFollowers(id:number) {
-        return instance.delete(`follow/${id}`)
+    unfollow(userId:number) {
+        return instance.delete(`follow/${userId}`)
             .then((response:any) =>  {
             return response.data
         })
     },
-    getFollower(id:number) {
-        return instance.post(`follow/${id}`)
+    follow(userId:number) {
+        return instance.post(`follow/${userId}`)
             .then((response:any) =>  {
                 return response.data
             })
