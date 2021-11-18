@@ -78,7 +78,7 @@ export const setTotalCurrentCount =(totalUserCount:number) => ({type: SET_TOTAL_
 
 
 //санки
-export const detUsersThunkCreator = (currentPage:number,pageSize:number) => {
+export const getUsersThunkCreator = (currentPage:number,pageSize:number) => {
     return (dispatch:any) => {
         dispatch(toggleIsFetching(true))
         usersApi.getUsers(currentPage, pageSize)
