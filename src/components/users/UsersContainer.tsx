@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from "./Users";
@@ -7,10 +6,7 @@ import {
     getUsers,
     follow,
     setCurrentPage,
-    setTotalCurrentCount,
-    setUsers,
     toggleFollowingProgress,
-    toggleIsFetching,
     unfollow,
 } from "../../redux/usersReducer";
 
@@ -79,10 +75,7 @@ let mapStateToProps = (state:any) => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
     setCurrentPage,
-    setTotalCurrentCount,
-    toggleIsFetching,
     toggleFollowingProgress,
     getUsers
 })(UsersContainer);
