@@ -1,9 +1,12 @@
+import {usersApi} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
+const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT';
 
 let initialState = {
     users: [ ],
@@ -15,6 +18,7 @@ let initialState = {
 };
 
 const usersReducer = (state = initialState, action: {
+    totalUserCount: number;
     isFetching: boolean;
     currentPage: number;
     type: any; userId: any; users: any; }) => {
@@ -45,6 +49,9 @@ const usersReducer = (state = initialState, action: {
         case SET_CURRENT_PAGE: {
             return { ...state, currentPage: action.currentPage}
         }
+        case SET_TOTAL_USER_COUNT: {
+            return { ...state, totalUserCount: action.totalUserCount}
+        }
         case TOGGLE_IS_FETCHING: {
             return { ...state, isFetching: action.isFetching}
         }
@@ -67,5 +74,20 @@ export const setUsers = (users: any) => ({type: SET_USERS, users })
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage })
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching })
 export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId })
+export const setTotalCurrentCount =(totalUserCount:number) => ({type: SET_TOTAL_USER_COUNT, count: totalUserCount })
+
+
+//санки
+export const detUsersThunkCreator = (currentPage:number,pageSize:number) => {
+    return (dispatch:any) => {
+        dispatch(toggleIsFetching(true))
+        usersApi.getUsers(currentPage, pageSize)
+            .then((data: any) => {
+                dispatch(toggleIsFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalCurrentCount(data.totalCount))
+            });
+    }
+}
 
 export default usersReducer;
