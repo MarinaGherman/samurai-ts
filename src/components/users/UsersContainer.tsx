@@ -33,6 +33,7 @@ class UsersContainer extends React.Component {
                 this.props.isFetching ? <Loader/> : null
             }
                     <Users
+
                         // @ts-ignore
                         users={this.props.users}
                         // @ts-ignore
