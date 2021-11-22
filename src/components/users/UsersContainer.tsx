@@ -10,6 +10,7 @@ import {
     toggleFollowingProgress,
     getUsers
 } from "../../redux/usersReducer";
+import {Redirect} from "react-router-dom";
 
 
 
@@ -26,7 +27,8 @@ class UsersContainer extends React.Component {
 
 
     render() {
-
+        // @ts-ignore
+        if(!this.props.isAuth) return <Redirect to={'/login'}/>
         return <div>
 
             {// @ts-ignore
@@ -68,7 +70,8 @@ let mapStateToProps = (state:any) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         totalUserCount:state.usersPage.totalUserCount,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth
     }
 }
 

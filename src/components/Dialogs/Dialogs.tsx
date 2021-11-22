@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import s from './Dialogs.module.scss';
 
 const DialogItem = ({name, id}: any) => {
@@ -24,6 +24,7 @@ export type Props = {
     updateNewMessageBody?:any
     sendMessage?:any
     dialogsPage?:any
+    isAuth: boolean
 }
 
 const Dialogs = (props:Props) => {
@@ -41,8 +42,10 @@ const Dialogs = (props:Props) => {
     let onNewMessageChange = (e: any) => {
         let body = e.target.value
         props.updateNewMessageBody(body);
-        // store.dispatch(updateNewMessageBodyActionCreator(body))
     }
+
+    if(!props.isAuth) return <Redirect to={'/login'}/>
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
