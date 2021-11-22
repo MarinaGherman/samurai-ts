@@ -17,7 +17,6 @@ export const usersApi = {
             return response.data
         });
     },
-
     unfollow(userId:number) {
         return instance.delete(`follow/${userId}`)
             .then((response:any) =>  {
@@ -29,7 +28,15 @@ export const usersApi = {
             .then((response:any) =>  {
                 return response.data
             })
+    },
+    getProfile(userId:number) {
+        return instance.get(`profile/` + userId)
     }
+}
+
+export const authApi = {
+    me() {
+        return instance.get(`auth/me`)}
 }
 
 
