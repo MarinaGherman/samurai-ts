@@ -17,9 +17,13 @@ const App = () => {
               <HeaderContainer/>
               <Navbar />
               <div className={s.appWrapperContent}>
+                  {/*@ts-ignore*/}
                   <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                  {/*@ts-ignore*/}
                   <Route path="/profile/:userId?" render={() => <ProfileContainer/>} />
+                  {/*@ts-ignore*/}
                   <Route path="/users" render={() => <UsersContainer/>} />
+                  {/*@ts-ignore*/}
                   <Route path="/login" render={() => <Login/>} />
               </div>
           </div>
