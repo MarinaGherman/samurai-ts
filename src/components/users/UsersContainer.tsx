@@ -11,6 +11,7 @@ import {
     getUsers
 } from "../../redux/usersReducer";
 import {Redirect} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 
@@ -27,8 +28,7 @@ class UsersContainer extends React.Component {
 
 
     render() {
-        // @ts-ignore
-        if(!this.props.isAuth) return <Redirect to={'/login'}/>
+
         return <div>
 
             {// @ts-ignore
@@ -75,10 +75,10 @@ let mapStateToProps = (state:any) => {
     }
 }
 
-export default connect(mapStateToProps, {
+export default withAuthRedirect (connect(mapStateToProps, {
     unfollow,
     follow,
     setCurrentPage,
     toggleFollowingProgress,
     getUsers
-})(UsersContainer);
+})(UsersContainer));

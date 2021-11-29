@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Post.module.scss';
-type PropsType = {
+export type PropsType = {
     message: string
     likesCount: number
 }

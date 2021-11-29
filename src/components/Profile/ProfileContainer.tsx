@@ -3,6 +3,7 @@ import Profile from "./Profile";
 import { connect } from 'react-redux';
 import {getUserProfile} from "../../redux/profileReducer";
 import {Redirect, withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class ProfileContainer extends Component {
     componentDidMount() {
@@ -17,8 +18,6 @@ class ProfileContainer extends Component {
     }
 
     render() {
-        //@ts-ignore
-        if(!this.props.isAuth) return <Redirect to={'/login'}/>
 
         return (
             <>
@@ -44,6 +43,6 @@ let mapStateToProps = (state:any) => {
 //закидываем данные из урла (создается новая контейнерная компонента которую уже добавляем в коннект)
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {
+export default withAuthRedirect(connect(mapStateToProps, {
     getUserProfile
-})(WithUrlDataContainerComponent);
+})(WithUrlDataContainerComponent));
