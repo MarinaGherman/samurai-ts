@@ -13,12 +13,12 @@ const AuthReducer = (state:any = initialState,action:any) => {
     switch (action.type) {
         case SET_USER_DATA :
             return {
-                ...state, ...action.data, isAuth:true
+                ...state, ...action.data, isAuth: true
             }
 
 
         default:
-            return state;
+            return state
     }
 }
 //AC

@@ -11,6 +11,7 @@ import instagram from "../../../../assets/images/instagram.png";
 import youtube from "../../../../assets/images/youtube.png";
 import github from "../../../../assets/images/github.png";
 import mainLink from "../../../../assets/images/mail.png";
+import ProfileStatus from '../../ProfileStatus';
 
 
 const images: any = {
@@ -47,6 +48,9 @@ const ProfileInfo = (props:any) => {
                     </div>
                         : ''
                 }
+                <ProfileStatus
+                    // @ts-ignore
+                    status={'hello'}/>
             </div>
             <div className={s.profileInfo}>
                 <h2 className={s.name}>{props.profile.fullName}</h2>
