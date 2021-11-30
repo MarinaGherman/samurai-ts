@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import Profile from "./Profile";
 import { connect } from 'react-redux';
 import {getUserProfile} from "../../redux/profileReducer";
-import {Redirect, withRouter} from "react-router-dom";
+import { withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class ProfileContainer extends Component {
     componentDidMount() {
@@ -38,11 +39,7 @@ let mapStateToProps = (state:any) => {
     }
 }
 
-// @ts-ignore
-
-//закидываем данные из урла (создается новая контейнерная компонента которую уже добавляем в коннект)
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
-
-export default withAuthRedirect(connect(mapStateToProps, {
-    getUserProfile
-})(WithUrlDataContainerComponent));
+export default  compose(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    withAuthRedirect)(ProfileContainer)

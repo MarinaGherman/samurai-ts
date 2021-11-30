@@ -10,8 +10,8 @@ import {
     toggleFollowingProgress,
     getUsers
 } from "../../redux/usersReducer";
-import {Redirect} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 
@@ -75,10 +75,12 @@ let mapStateToProps = (state:any) => {
     }
 }
 
-export default withAuthRedirect (connect(mapStateToProps, {
-    unfollow,
-    follow,
-    setCurrentPage,
-    toggleFollowingProgress,
-    getUsers
-})(UsersContainer));
+
+export default compose(connect(mapStateToProps, {
+        unfollow,
+        follow,
+        setCurrentPage,
+        toggleFollowingProgress,
+        getUsers
+    }),
+    withAuthRedirect)(UsersContainer)

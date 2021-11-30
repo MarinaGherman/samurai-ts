@@ -34,13 +34,13 @@ const ProfileInfo = (props:any) => {
     return (
         <div className={s.main}>
             <div>
-                {!props.profile.photos.large ? <img src={avatar} /> :<img src={props.profile.photos.large} />}
+                {!props.profile.photos.large ? <img src={avatar}  alt="img"/> :<img src={props.profile.photos.large} alt="img" />}
                 {
                     props.profile.lookingForAJob === true
                         ?
                         <div className={s.jobBlock}>
                         <div className={s.iconJobBlock}>
-                            <img className={s.icon} src={lookJob} />
+                            <img className={s.icon} src={lookJob} alt="img" />
                         </div>
                         <h4>Описание работы</h4>
                         <p>{props.profile.lookingForAJobDescription}</p>
