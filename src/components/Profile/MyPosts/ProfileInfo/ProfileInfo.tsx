@@ -50,7 +50,10 @@ const ProfileInfo = (props:any) => {
                 }
                 <ProfileStatus
                     // @ts-ignore
-                    status={'hello'}/>
+                    status={props.status}
+                    // @ts-ignore
+                    updateStatus={props.updateStatus}
+                />
             </div>
             <div className={s.profileInfo}>
                 <h2 className={s.name}>{props.profile.fullName}</h2>

@@ -4,6 +4,8 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 type ProfilePropsTypes = {
     profile: any
+    status:any
+    updateStatus:any
 }
 
 const Profile = (props:ProfilePropsTypes) => {
@@ -13,6 +15,12 @@ const Profile = (props:ProfilePropsTypes) => {
             <ProfileInfo
                 // @ts-ignore
                 profile={props.profile}
+                // @ts-ignore
+                status={props.status}
+                // @ts-ignore
+                updateStatus={props.updateStatus}
+
+
             />
             <MyPostsContainer />
         </div>
