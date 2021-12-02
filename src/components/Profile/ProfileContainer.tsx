@@ -11,7 +11,7 @@ class ProfileContainer extends Component {
         // @ts-ignore
         let userId:number = this.props.match.params.userId;
         if(!userId) {
-            userId = 2;
+            userId = 20042;
         }
         // @ts-ignore
         this.props.getUserProfile(userId);
