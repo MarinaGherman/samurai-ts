@@ -27,6 +27,17 @@ class ProfileStatus extends Component {
         })
     }
 
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+
+        // @ts-ignore
+        if(prevProps.status !== this.props.status) {
+            this.setState({
+                // @ts-ignore
+                status: this.props.status
+            })
+        }
+    }
+
     render() {
         return (
             <div>
