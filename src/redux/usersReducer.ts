@@ -17,6 +17,10 @@ let initialState = {
     followingInProgress: []
 };
 
+type MapStatePropsType ={
+
+}
+
 const usersReducer = (state = initialState, action: {
     count: number;
     isFetching: boolean;

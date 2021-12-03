@@ -7,9 +7,9 @@ import sidebarReducer from "./sidebarReducer";
 import usersReducer from "./usersReducer";
 import authReducer from "./auth-reducer";
 
+export type AppStateType = ReturnType<typeof rootReducer>
 
-
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
@@ -19,6 +19,6 @@ let reducers = combineReducers({
 });
 
 
-let store = createStore(reducers,applyMiddleware(thunkMiddleware));
+let store = createStore(rootReducer,applyMiddleware(thunkMiddleware));
 
 export default store;

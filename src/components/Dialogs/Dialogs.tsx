@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink, Redirect} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.scss';
 
 const DialogItem = ({name, id}: any) => {
@@ -10,9 +10,18 @@ const DialogItem = ({name, id}: any) => {
     )
 }
 
-type PropsType = any
+export type MessageType = {
+    id: number
+    message:string
+}
+export type DialogsPropsType = {
+    updateNewMessageBody?:any
+    sendMessage?:any
+    dialogsPage?:any
+    isAuth: boolean
+}
 
-const Message = (props: PropsType) => {
+const Message = (props: MessageType) => {
     return (
         <div className={s.message}>
             {props.message}
@@ -20,31 +29,18 @@ const Message = (props: PropsType) => {
     )
 }
 
-export type Props = {
-    updateNewMessageBody?:any
-    sendMessage?:any
-    dialogsPage?:any
-    isAuth: boolean
-}
-
-const Dialogs = (props:Props) => {
-
+const Dialogs = (props:DialogsPropsType) => {
     let state = props.dialogsPage;
-
     let dialogsElements =  state.dialogs.map((dialog: any)=> <DialogItem name={dialog.name} id={dialog.id}/>)
     let messagesElements = state.messages.map((dialog: any)=> <Message id={dialog.id} message={dialog.message}/>)
     let MessageBody = state.newMessageBody
-
-
     let onSendMessageClick = () => {
         props.sendMessage()
     }
-    let onNewMessageChange = (e: any) => {
+    let onNewMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let body = e.target.value
         props.updateNewMessageBody(body);
     }
-
-
 
     return (
         <div className={s.dialogs}>
@@ -56,6 +52,7 @@ const Dialogs = (props:Props) => {
                 <div>
                     <div>
                         <textarea value={MessageBody}
+                            // @ts-ignore
                                   onChange={onNewMessageChange}
                                   placeholder="enter your mess"
                         />
