@@ -37,7 +37,7 @@ const Dialogs = (props:DialogsPropsType) => {
     let onSendMessageClick = () => {
         props.sendMessage()
     }
-    let onNewMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let onNewMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value
         props.updateNewMessageBody(body);
     }
@@ -52,7 +52,6 @@ const Dialogs = (props:DialogsPropsType) => {
                 <div>
                     <div>
                         <textarea value={MessageBody}
-                            // @ts-ignore
                                   onChange={onNewMessageChange}
                                   placeholder="enter your mess"
                         />
