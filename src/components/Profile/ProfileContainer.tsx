@@ -2,36 +2,48 @@ import React, {Component} from 'react';
 import Profile from "./Profile";
 import { connect } from 'react-redux';
 import {getStatus, getUserProfile, updateStatus} from "../../redux/profileReducer";
-import { withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
-class ProfileContainer extends Component {
+
+type pathUserIdType ={
+    userId:number
+}
+
+type mapStateToPropsType =  {
+    profile:any
+    status:any
+}
+type mapDispatchPropsType =  {
+    getUserProfile:any
+    getStatus:any
+    updateStatus:any
+}
+type ownPropsType = mapStateToPropsType & mapDispatchPropsType
+
+type PropsType = RouteComponentProps<pathUserIdType> & ownPropsType
+
+
+class ProfileContainer extends Component<PropsType> {
     componentDidMount() {
-        // @ts-ignore
+
         let userId:number = this.props.match.params.userId;
         if(!userId) {
             userId = 20042;
         }
-        // @ts-ignore
         this.props.getUserProfile(userId);
-        // @ts-ignore
         this.props.getStatus(userId)
-
     }
 
     render() {
 
         return (
             <>
-
               <Profile
                   {...this.props}
-                  //@ts-ignore
                   profile={this.props.profile}
-                  //@ts-ignore
                   status={this.props.status}
-                  //@ts-ignore
                   updateStatus={this.props.updateStatus}
               />
             </>
