@@ -76,7 +76,7 @@ let mapStateToProps = (state:any) => {
 }
 
 
-export default compose(connect(mapStateToProps, {
+export default compose<React.ComponentType>(connect(mapStateToProps, {
         unfollow,
         follow,
         setCurrentPage,
