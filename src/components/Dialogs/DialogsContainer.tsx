@@ -2,13 +2,10 @@ import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../..
 import Dialogs from './Dialogs';
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {Action, compose, Dispatch} from "redux";
+import {compose} from "redux";
 import React from "react";
 import {AppStateType} from "../../redux/redux-store";
-//
-// type mapDispatchToPropsType ={
-//     dispatch :Dispatch<Action<any>>
-// }
+
 
 let mapStateToProps = (state:AppStateType) => {
     return {
