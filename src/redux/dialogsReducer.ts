@@ -16,7 +16,7 @@ export let updateNewMessageBodyActionCreator =(body:string) => ({
 })
 
 //types
-export type DialogsType = {
+export type DialogType = {
     id: number
     name: string
 }
@@ -26,13 +26,13 @@ export type MessagesTypes = {
 }
 export type newMessageBodyType = string
 
-export type DialogType ={
-    dialogs: DialogsType[]
+export type DialogsType ={
+    dialogs: DialogType[]
     messages: MessagesTypes[]
     newMessageBody: newMessageBodyType
 }
 //state
-let initialState: DialogType = {
+let initialState: DialogsType = {
     dialogs: [
         {id:1, name: "Andrei"},
         {id:2, name: "Marina"},
