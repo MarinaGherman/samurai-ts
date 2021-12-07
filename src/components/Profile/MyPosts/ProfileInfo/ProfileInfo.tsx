@@ -12,7 +12,13 @@ import youtube from "../../../../assets/images/youtube.png";
 import github from "../../../../assets/images/github.png";
 import mainLink from "../../../../assets/images/mail.png";
 import ProfileStatus from '../../ProfileStatus';
+import {ProfileType} from "../../../../redux/profileReducer";
 
+type ProfileInfoTypes = {
+    profile: ProfileType
+    status:string
+    updateStatus:(status:string) => void
+}
 
 const images: any = {
     facebook: facebook,
@@ -26,16 +32,15 @@ const images: any = {
 }
 
 const contacts = Object.keys(images)
-
-
-const ProfileInfo = (props:any) => {
-    if(!props.profile) {
-        return <Loader/>
-    }
+const ProfileInfo = (props:ProfileInfoTypes) => {
+    if(!props.profile)
+    {return <Loader/>}
     return (
         <div className={s.main}>
             <div>
-                {!props.profile.photos.large ? <img src={avatar}  alt="img"/> :<img src={props.profile.photos.large} alt="img" />}
+                {
+                    // @ts-ignore
+                    !props.profile.photos.large ? <img src={avatar}  alt="img"/> :<img src={props.profile.photos.large} alt="img" />}
                 {
                     props.profile.lookingForAJob === true
                         ?
@@ -49,9 +54,7 @@ const ProfileInfo = (props:any) => {
                         : ''
                 }
                 <ProfileStatus
-                    // @ts-ignore
                     status={props.status}
-                    // @ts-ignore
                     updateStatus={props.updateStatus}
                 />
             </div>
@@ -61,7 +64,9 @@ const ProfileInfo = (props:any) => {
             </div>
             <div className={s.contacts}>
                 {contacts.map(contact => {
+                    // @ts-ignore
                     if (Object.keys(props.profile.contacts).includes(contact) && props.profile.contacts[contact]) {
+                        // @ts-ignore
                         return <a href={props.profile.contacts[contact]}> <img className={s.socialIcons} src={images[contact]} alt=""/></a>
                     }
 

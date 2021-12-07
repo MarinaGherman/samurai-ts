@@ -1,26 +1,28 @@
 import React from 'react';
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
+import {PostType} from "../../../redux/profileReducer";
 
-type Props = any
+type MyPostsPropsTypes = {
+    posts:PostType[]
+    addPost: () => void
+    updateNewPostText: (text:string) => void
+    newPostText: string
+}
 
-const MyPosts = (props: Props) => {
+const MyPosts = (props: MyPostsPropsTypes) => {
 
     let postElements =
-        props.posts.map((p:any)=> <Post message={p.message} likesCount={p.likeCount}/>)
+        props.posts.map((p)=> <Post message={p.message} likesCount={p.likeCount}/>)
 
-
-    let newPostElement: any = React.createRef();
-
+    let newPostElement:any = React.createRef();
     let onAddPost = () => {
         props.addPost();
     }
-
     let onPostChange = () => {
         let text = newPostElement.current.value;
         props.updateNewPostText(text)
     }
-
     return (
         <div className={s.posts}>
             My posts

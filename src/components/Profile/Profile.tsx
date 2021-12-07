@@ -1,26 +1,23 @@
 import React from 'react';
 import ProfileInfo from "./MyPosts/ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {ProfileType} from "../../redux/profileReducer";
 
 type ProfilePropsTypes = {
-    profile: any
-    status:any
-    updateStatus:any
+    profile: ProfileType
+    status:string
+    updateStatus:(status:string) => void
 }
 
 const Profile = (props:ProfilePropsTypes) => {
+    console.log(props.profile)
     return (
         <div >
 
             <ProfileInfo
-                // @ts-ignore
                 profile={props.profile}
-                // @ts-ignore
                 status={props.status}
-                // @ts-ignore
                 updateStatus={props.updateStatus}
-
-
             />
             <MyPostsContainer />
         </div>

@@ -7,7 +7,7 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT';
 
-type PhotosType = {
+export type PhotosType = {
     small?: string
     large?: string
 }

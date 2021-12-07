@@ -1,9 +1,54 @@
 import {profileAPI, usersApi} from "../api/api";
+import {PhotosType} from "./usersReducer";
+
 
 export const ADD_POST = 'ADD-POST';
 export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_STATUS = 'SET_STATUS';
+
+
+export type PostType = {
+    id: number
+    message: string
+    likeCount:number
+}
+export type PostsType = {
+    posts: PostType[]
+    newPostText:string
+    profile: ProfileType | null
+    status:string
+}
+
+type ContactsType = {
+        skype?: string,
+        vk?: string,
+        facebook?: string,
+        icq?: string
+        email?: string,
+        googlePlus?: string,
+        twitter?: string,
+        instagram?: string,
+        whatsApp?: string
+}
+
+export type ProfileType = {
+    aboutMe?: string | undefined
+    lookingForAJob?: boolean | undefined
+    lookingForAJobDescription?:string | undefined
+    fullName?:string  | undefined
+    userId?:number  | undefined
+    contacts?: ContactsType | undefined
+    photos?:PhotosType | undefined
+}
+
+type ActionType = {
+    type: 'SET_USER_PROFILE' | 'SET_STATUS' |'ADD-POST' | 'UPDATE-NEW-POST-TEXT'
+    text:string
+    profile:ProfileType
+    status:string
+}
+
 
 //state
 let initialState = {
@@ -16,7 +61,7 @@ let initialState = {
     status: ""
 }
 
-const profileReducer = (state:any = initialState,action:any) => {
+const profileReducer = (state:PostsType = initialState,action:ActionType) => {
 
     switch (action.type) {
         case  ADD_POST: {
@@ -61,7 +106,7 @@ export let updateNewPostTextActionCreator = (text:string) => ({
     type: UPDATE_NEW_POST_TEXT,
     text
 })
-export let setUserProfile = (profile:any) => ({
+export let setUserProfile = (profile:string) => ({
     type: SET_USER_PROFILE,
     profile
 })
@@ -70,25 +115,30 @@ export let setStatus = (status:string) => ({
     status
 })
 
+type DispatchCommonType = (dispatch:DispatchType) => void
+type DispatchType = {
+    type: string
+}
+
 
 //thunk creator
-export let getUserProfile = (userId:number) => (dispatch:any) => {
+export let getUserProfile = (userId:number) => (dispatch:DispatchCommonType) => {
     usersApi.getProfile(userId)
-        .then((response: any) => {
+        .then((response) => {
             dispatch(setUserProfile(response.data));
         });
 }
 
-export let getStatus = (userId:number) => (dispatch:any) => {
+export let getStatus = (userId:number) => (dispatch:DispatchCommonType) => {
     profileAPI.getStatus(userId)
-        .then((response: any) => {
+        .then((response) => {
             dispatch(setStatus(response.data));
         });
 }
 
-export let updateStatus = (status:string) => (dispatch:any) => {
+export let updateStatus = (status:string) => (dispatch:DispatchCommonType) => {
     profileAPI.updateStatus(status)
-        .then((response: any) => {
+        .then((response) => {
             if(response.data.resultCode === 0)
             dispatch(setStatus(status));
         });

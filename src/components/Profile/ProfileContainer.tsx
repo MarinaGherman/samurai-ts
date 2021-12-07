@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import Profile from "./Profile";
 import { connect } from 'react-redux';
-import {getStatus, getUserProfile, updateStatus} from "../../redux/profileReducer";
+import {getStatus, getUserProfile, ProfileType, updateStatus} from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 
-type pathUserIdType ={
+type pathUserIdType={
     userId:number
 }
 
 type mapStateToPropsType =  {
-    profile:any
-    status:any
+    profile:ProfileType
+    status:string
 }
 type mapDispatchPropsType =  {
     getUserProfile:any
@@ -26,18 +26,17 @@ type PropsType = RouteComponentProps<pathUserIdType> & ownPropsType
 
 
 class ProfileContainer extends Component<PropsType> {
-    componentDidMount() {
 
+    componentDidMount() {
         let userId:number = this.props.match.params.userId;
         if(!userId) {
-            userId = 20042;
+            userId = 2;
         }
         this.props.getUserProfile(userId);
         this.props.getStatus(userId)
     }
 
     render() {
-
         return (
             <>
               <Profile
@@ -50,6 +49,8 @@ class ProfileContainer extends Component<PropsType> {
         );
     }
 }
+
+
 let mapStateToProps = (state:any) => {
     return{
         profile: state.profilePage.profile,
