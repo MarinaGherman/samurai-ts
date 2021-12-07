@@ -1,6 +1,4 @@
 import {usersApi} from "../api/api";
-import React from "react";
-
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
