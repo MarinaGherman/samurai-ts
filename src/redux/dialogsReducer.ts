@@ -1,6 +1,7 @@
 
 export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 export const SEND_MESSAGE = 'SEND-MESSAGE';
+
 export type ActionType = {
     type: 'UPDATE-NEW-MESSAGE-BODY' | 'SEND-MESSAGE';
     body:string

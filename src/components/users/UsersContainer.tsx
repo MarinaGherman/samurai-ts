@@ -2,64 +2,53 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Users from "./Users";
 import Loader from "../common/Loader";
-
 import {
     follow,
     setCurrentPage,
     unfollow,
     toggleFollowingProgress,
-    getUsers
+    getUsers, UsersType, UserType
 } from "../../redux/usersReducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import {AppStateType} from "../../redux/redux-store";
 
+type PropsType = {
+    users:UsersType
+    totalUsersCount:number
+    pagesSize:number
+    currentPage:number
+    follow:(userId:number) => void
+    unfollow:(userId:number) => void
+    followingInProgress:Array<UserType>
+    getUsers: (pageNumber:number,pageSize:number) => void
+    isFetching: boolean
+    pageSize: number
+}
 
-
-class UsersContainer extends React.Component {
+class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
-       // @ts-ignore
         this.props.getUsers(this.props.currentPage,this.props.pageSize)
     }
 
-    onPageChanged = (pageNumber:number) => {
-        // @ts-ignore
+    onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber,this.props.pageSize)
     }
-
-
     render() {
-
         return <div>
-
-            {// @ts-ignore
+            {
                 this.props.isFetching ? <Loader/> : null
             }
                     <Users
-
-                        // @ts-ignore
                         users={this.props.users}
-                        // @ts-ignore
                         totalUsersCount={this.props.totalUsersCount}
-                        // @ts-ignore
                         pagesSize={this.props.pagesSize}
-                        // @ts-ignore
                         currentPage={this.props.currentPage}
-                        // @ts-ignore
                         onPageChanged={this.onPageChanged}
-                        // @ts-ignore
                         follow={this.props.follow}
-                        // @ts-ignore
                         unfollow={this.props.unfollow}
-                        // @ts-ignore
-                        totalUserCount={this.props.totalUserCount}
-                        // @ts-ignore
                         followingInProgress={this.props.followingInProgress}
                     />
                 </div>
-
-
-
     }
 }
 
