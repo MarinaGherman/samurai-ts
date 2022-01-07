@@ -3,7 +3,6 @@ import {PhotosType} from "./usersReducer";
 
 
 export const ADD_POST = 'ADD-POST';
-export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_STATUS = 'SET_STATUS';
 
@@ -15,7 +14,6 @@ export type PostType = {
 }
 export type PostsType = {
     posts: PostType[]
-    newPostText:string
     profile: ProfileType | null
     status:string
 }
@@ -43,7 +41,8 @@ export type ProfileType = {
 }
 
 type ActionType = {
-    type: 'SET_USER_PROFILE' | 'SET_STATUS' |'ADD-POST' | 'UPDATE-NEW-POST-TEXT'
+    newPostText: string;
+    type: 'SET_USER_PROFILE' | 'SET_STATUS' |'ADD-POST'
     text:string
     profile:ProfileType
     status:string
@@ -56,7 +55,6 @@ let initialState = {
         {id:1, message: "Hi, how are you?", likeCount: 12},
         {id:23, message: "It's my first post", likeCount: 132}
     ],
-    newPostText: '',
     profile: null,
     status: ""
 }
@@ -67,7 +65,7 @@ const profileReducer = (state:PostsType = initialState,action:ActionType) => {
         case  ADD_POST: {
             let newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likeCount: 0
             };
             return  {
@@ -77,12 +75,6 @@ const profileReducer = (state:PostsType = initialState,action:ActionType) => {
             }
         }
 
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.text
-            }
-        }
         case SET_USER_PROFILE: {
             return {
                 ...state, profile: action.profile
@@ -99,13 +91,11 @@ const profileReducer = (state:PostsType = initialState,action:ActionType) => {
 }
 
 //actionCreators
-export let addPostActionCreator = () => ({
-    type: ADD_POST
+export let addPostActionCreator = (newPostText: any) => ({
+    type: ADD_POST,
+    newPostText
 })
-export let updateNewPostTextActionCreator = (text:string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    text
-})
+
 export let setUserProfile = (profile:string) => ({
     type: SET_USER_PROFILE,
     profile

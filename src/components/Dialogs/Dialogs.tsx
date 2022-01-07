@@ -4,7 +4,7 @@ import s from './Dialogs.module.scss';
 import {DialogsType} from "../../redux/dialogsReducer";
 import  {reduxForm,Field} from "redux-form";
 
-
+//DialogItem
 type DialogItemType = {
     name: string
     id:number
@@ -16,7 +16,7 @@ const DialogItem = ({name, id}: DialogItemType) => {
         </div>
     )
 }
-
+//Message
  type MessageType = {
     id: number
     message:string
@@ -32,23 +32,19 @@ const Message = (props: MessageType) => {
 
 type DialogsPropsType = {
     updateNewMessageBody:(body:string) => void
-    sendMessage: () => void
+    sendMessage: (newMessageBody:string) => void
     dialogsPage:DialogsType
     isAuth: boolean
 }
-
+//Dialogs
 const Dialogs = (props:DialogsPropsType) => {
 
     let state = props.dialogsPage;
     let dialogsElements =  state.dialogs.map((dialog)=> <DialogItem name={dialog.name} id={dialog.id}/>)
     let messagesElements = state.messages.map((dialog)=> <Message id={dialog.id} message={dialog.message}/>)
-    let MessageBody = state.newMessageBody
-    let onSendMessageClick = () => {
-        props.sendMessage()
-    }
-    let onNewMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        let body = e.target.value
-        props.updateNewMessageBody(body);
+
+    let addNewMessage = (values:any) => {
+        props.sendMessage(values.newMessageBody)
     }
 
     return (
@@ -58,11 +54,13 @@ const Dialogs = (props:DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <AddMessageFormRedux/>
+                <AddMessageFormRedux onSubmit={addNewMessage}/>
             </div>
         </div>
     );
 };
+
+//AddMessageForm
 const AddMessageForm = (props:any) => {
     return  (
         <form onSubmit={props.handleSubmit}>
