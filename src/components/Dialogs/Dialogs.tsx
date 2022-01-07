@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.scss';
 import {DialogsType} from "../../redux/dialogsReducer";
+import  {reduxForm,Field} from "redux-form";
 
 
 type DialogItemType = {
@@ -57,20 +58,25 @@ const Dialogs = (props:DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <div>
-                    <div>
-                        <textarea value={MessageBody}
-                                  onChange={onNewMessageChange}
-                                  placeholder="enter your mess"
-                        />
-                    </div>
-                    <div>
-                        <button onClick={onSendMessageClick}>Add Message</button>
-                    </div>
-                </div>
+                <AddMessageFormRedux/>
             </div>
         </div>
     );
 };
+const AddMessageForm = (props:any) => {
+    return  (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component= 'textarea' name='newMessageBody' placeholder="enter your mess" />
+
+            </div>
+            <div>
+                <button>Add Message</button>
+            </div>
+        </form>
+    )
+}
+
+const  AddMessageFormRedux = reduxForm({form: 'dialogAddMessageForm'})(AddMessageForm)
 
 export default Dialogs;
