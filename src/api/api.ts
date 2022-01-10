@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 
 
 
@@ -49,7 +49,11 @@ export const profileAPI = {
 
 export const authApi = {
     me() {
-        return instance.get(`auth/me`)}
+        return instance.get(`auth/me`)},
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post(`auth/login`,{email,password,rememberMe})},
+    logout() {
+        return instance.delete(`auth/login`)},
 }
 
 
