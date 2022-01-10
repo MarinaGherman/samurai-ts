@@ -3,6 +3,8 @@ import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.scss';
 import {DialogsType} from "../../redux/dialogsReducer";
 import  {reduxForm,Field} from "redux-form";
+import {Textarea} from "../common/formsControls/FormsControls";
+import {maxlengthCreator, required} from "../../utils/validators/validators";
 
 //DialogItem
 type DialogItemType = {
@@ -61,11 +63,17 @@ const Dialogs = (props:DialogsPropsType) => {
 };
 
 //AddMessageForm
+
+const maxLength50 = maxlengthCreator(50)
 const AddMessageForm = (props:any) => {
     return  (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component= 'textarea' name='newMessageBody' placeholder="enter your mess" />
+                <Field component={Textarea}
+                       name='newMessageBody'
+                       placeholder="enter your mess"
+                       validate={[required, maxLength50]}
+                />
 
             </div>
             <div>
