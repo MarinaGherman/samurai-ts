@@ -45,6 +45,9 @@ const LoginForm:React.FC<InjectedFormProps<formDataType>> = (props) => {
                     />
                     remember me
                 </div>
+                <div>
+
+                </div>
                 <button>Login</button>
             </form>
         </div>
