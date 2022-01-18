@@ -112,10 +112,11 @@ type DispatchType = {
 }
 
 //санки
-export const getUsers = (currentPage:number,pageSize:number) => {
+export const requestUsers = (page:number, pageSize:number) => {
     return (dispatch: DispatchCommonType) => {
         dispatch(toggleIsFetching(true))
-        usersApi.getUsers(currentPage, pageSize)
+        dispatch(setCurrentPage(page))
+        usersApi.getUsers(page, pageSize)
             .then((data) => {
                 dispatch(toggleIsFetching(false))
                 dispatch(setUsers(data.items))
