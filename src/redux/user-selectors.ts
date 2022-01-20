@@ -1,7 +1,14 @@
+import {createSelector} from "reselect";
 
-export const getUsersSelector = (state:any) => {
+export const getUsers = (state:any) => {
     return state.usersPage.users;
 }
+
+//сложные селекторы
+export  const getUsersSelector = createSelector(getUsers,(users) => {
+    // @ts-ignore
+    return users.filter(u => true)
+})
 export const getPageSize = (state:any) => {
     return state.usersPage.pageSize;
 }
