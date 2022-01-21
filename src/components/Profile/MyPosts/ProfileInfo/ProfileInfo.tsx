@@ -13,6 +13,7 @@ import github from "../../../../assets/images/github.png";
 import mainLink from "../../../../assets/images/mail.png";
 import ProfileStatus from '../../ProfileStatus';
 import {ProfileType} from "../../../../redux/profileReducer";
+import ProfileStatusWithHooks from "../../ProfileStatusWithHooks";
 
 type ProfileInfoTypes = {
     profile: ProfileType
@@ -53,7 +54,7 @@ const ProfileInfo = (props:ProfileInfoTypes) => {
                     </div>
                         : ''
                 }
-                <ProfileStatus
+                <ProfileStatusWithHooks
                     status={props.status}
                     updateStatus={props.updateStatus}
                 />

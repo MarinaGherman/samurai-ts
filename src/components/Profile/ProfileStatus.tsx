@@ -22,7 +22,7 @@ class ProfileStatus extends Component<ProfileStatusType> {
         })
         this.props.updateStatus(this.state.status)
     }
-    onStatusChange =(e:any) => {
+    onStatusChange =(e:React.ChangeEvent<HTMLInputElement>) => {
         this.setState({
             status: e.currentTarget.value
 
