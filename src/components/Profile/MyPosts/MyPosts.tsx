@@ -11,13 +11,12 @@ type MyPostsPropsTypes = {
     addPost: (newPostText: string) => void
 }
 
-const MyPosts = (props: MyPostsPropsTypes) => {
-
+const MyPosts = React.memo((props: MyPostsPropsTypes) => {
     let postElements =
-        props.posts.map((p)=> <Post message={p.message} likesCount={p.likeCount}/>)
+        props.posts.map((p) => <Post message={p.message} likesCount={p.likeCount}/>)
 
 
-    let onAddPost = (values:any) => {
+    let onAddPost = (values: any) => {
         props.addPost(values.newPostText);
     }
 
@@ -30,7 +29,8 @@ const MyPosts = (props: MyPostsPropsTypes) => {
             </div>
         </div>
     )
-}
+});
+
 // redux form
 const maxLength10 = maxlengthCreator(10)
 const AddNewPostForm =(props: { handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined; }) => {

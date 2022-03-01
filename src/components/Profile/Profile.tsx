@@ -10,7 +10,6 @@ type ProfilePropsTypes = {
 }
 
 const Profile = (props:ProfilePropsTypes) => {
-    console.log(props.profile)
     return (
         <div >
 
