@@ -5,6 +5,7 @@ import {PhotosType} from "./usersReducer";
 export const ADD_POST = 'ADD-POST';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_STATUS = 'SET_STATUS';
+export const DELETE_POST = 'DELETE_POST';
 
 
 export type PostType = {
@@ -40,12 +41,13 @@ export type ProfileType = {
     photos?:PhotosType | undefined
 }
 
-type ActionType = {
+export type ActionType = {
     newPostText: string;
-    type: 'SET_USER_PROFILE' | 'SET_STATUS' |'ADD-POST'
+    type: 'SET_USER_PROFILE' | 'SET_STATUS' |'ADD-POST' | "DELETE_POST"
     text:string
     profile:ProfileType
     status:string
+    postId: number
 }
 
 
@@ -85,6 +87,11 @@ const profileReducer = (state:PostsType = initialState,action:ActionType) => {
                 ...state, status: action.status
             }
         }
+        case DELETE_POST: {
+            return {
+                ...state, posts: state.posts.filter(f=> f.id !== action.postId)
+            }
+        }
         default:
             return state;
     }
@@ -104,6 +111,13 @@ export let setStatus = (status:string) => ({
     type: SET_STATUS,
     status
 })
+export let deletePost = (postId:number) => ({
+    type: DELETE_POST,
+    postId
+})
+
+
+
 
 type DispatchCommonType = (dispatch:DispatchType) => void
 type DispatchType = {
