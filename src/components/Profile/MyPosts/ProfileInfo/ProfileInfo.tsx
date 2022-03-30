@@ -11,7 +11,6 @@ import instagram from "../../../../assets/images/instagram.png";
 import youtube from "../../../../assets/images/youtube.png";
 import github from "../../../../assets/images/github.png";
 import mainLink from "../../../../assets/images/mail.png";
-import ProfileStatus from '../../ProfileStatus';
 import {ProfileType} from "../../../../redux/profileReducer";
 import ProfileStatusWithHooks from "../../ProfileStatusWithHooks";
 

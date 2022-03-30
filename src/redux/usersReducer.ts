@@ -113,44 +113,38 @@ type DispatchType = {
 
 //санки
 export const requestUsers = (page:number, pageSize:number) => {
-    return (dispatch: DispatchCommonType) => {
+    return async (dispatch: DispatchCommonType) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-        usersApi.getUsers(page, pageSize)
-            .then((data) => {
+        let data = await usersApi.getUsers(page, pageSize)
                 dispatch(toggleIsFetching(false))
                 dispatch(setUsers(data.items))
                 dispatch(setTotalCurrentCount(data.totalCount))
-            });
+
     }
 }
 
+const followUnfollowFlow = async (dispatch:DispatchCommonType, userId: number, apiMethod:  any, actionCreator:any )=> {
+     dispatch(toggleFollowingProgress(true, userId))
+    let data = await  apiMethod(userId)
+    if(data.resultCode === 0) {
+        dispatch(actionCreator(userId))
+    }
+    dispatch(toggleFollowingProgress(false, userId))
+}
+
 export const follow = (userId:number) => {
-    return (dispatch:DispatchCommonType) => {
+    return async (dispatch:DispatchCommonType) => {
+        let apiMethod = usersApi.follow.bind(usersApi)
+         await followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
 
-        dispatch(toggleFollowingProgress(true, userId))
-
-        usersApi.follow(userId)
-            .then((data) => {
-                if(data.resultCode === 0) {
-                    dispatch(followSuccess(userId))
-                }
-                dispatch(toggleFollowingProgress(false, userId))
-            })
     }
 }
 
 export const unfollow = (userId:number) => {
-    return (dispatch:DispatchCommonType) => {
-        dispatch(toggleFollowingProgress(true, userId))
-
-        usersApi.unfollow(userId)
-            .then((data) => {
-                if(data.resultCode === 0) {
-                    dispatch(unfollowSuccess(userId))
-                }
-                dispatch(toggleFollowingProgress(false, userId))
-            })
+    return async (dispatch:DispatchCommonType) => {
+        let apiMethod = usersApi.unfollow.bind(usersApi)
+         await followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
     }
 }
 

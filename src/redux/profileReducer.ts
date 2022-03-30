@@ -20,15 +20,15 @@ export type PostsType = {
 }
 
 type ContactsType = {
-        skype?: string,
-        vk?: string,
-        facebook?: string,
-        icq?: string
-        email?: string,
-        googlePlus?: string,
-        twitter?: string,
-        instagram?: string,
-        whatsApp?: string
+    skype?: string,
+    vk?: string,
+    facebook?: string,
+    icq?: string
+    email?: string,
+    googlePlus?: string,
+    twitter?: string,
+    instagram?: string,
+    whatsApp?: string
 }
 
 export type ProfileType = {
@@ -117,8 +117,6 @@ export let deletePost = (postId:number) => ({
 })
 
 
-
-
 type DispatchCommonType = (dispatch:DispatchType) => void
 type DispatchType = {
     type: string
@@ -126,27 +124,22 @@ type DispatchType = {
 
 
 //thunk creator
-export let getUserProfile = (userId:number) => (dispatch:DispatchCommonType) => {
-    usersApi.getProfile(userId)
-        .then((response) => {
-            dispatch(setUserProfile(response.data));
-        });
+export let getUserProfile = (userId:number) => async (dispatch:DispatchCommonType) => {
+    let response = await usersApi.getProfile(userId)
+    dispatch(setUserProfile(response.data));
+
 }
 
-export let getStatus = (userId:number) => (dispatch:DispatchCommonType) => {
-    profileAPI.getStatus(userId)
-        .then((response) => {
-            dispatch(setStatus(response.data));
-        });
+export let getStatus = (userId:number) => async (dispatch:DispatchCommonType) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response.data));
+
 }
 
-export let updateStatus = (status:string) => (dispatch:DispatchCommonType) => {
-    profileAPI.updateStatus(status)
-        .then((response) => {
-            if(response.data.resultCode === 0)
-            dispatch(setStatus(status));
-        });
+export let updateStatus = (status:string) => async (dispatch:DispatchCommonType) => {
+    let response = await profileAPI.updateStatus(status)
+    if(response.data.resultCode === 0)
+        dispatch(setStatus(status));
 }
-
 
 export default profileReducer;
