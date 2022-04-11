@@ -3,14 +3,14 @@ import {UserType} from "../../redux/usersReducer";
 import styles from "./users.module.css";
 
 type PropsType = {
-    totalUsersCount:number
-    pagesSize:number
+    totalItemsCount:number
+    pageSize:number
     onPageChanged: (pageNumber: number) => void
     currentPage: number
 }
 
-const Paginator = ({totalUsersCount,pagesSize}:PropsType) => {
-    let pagesCount: number = Math.ceil(totalUsersCount / pagesSize);
+const Paginator = ({totalItemsCount,pageSize, currentPage, onPageChanged}:PropsType) => {
+    let pagesCount: number = Math.ceil(totalItemsCount / pageSize);
     let pages: any = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)

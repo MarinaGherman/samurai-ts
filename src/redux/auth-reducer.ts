@@ -1,4 +1,4 @@
-import {authApi} from "../api/api";
+import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 
@@ -40,7 +40,7 @@ export const setAuthUserData = (userId:number, email:string, login:string, isAut
 
 //thunk
 export const getAuthUserData = () => async (dispatch:any) => {
-    let response = await authApi.me()
+    let response = await authAPI.me()
             if (response.data.resultCode === 0) {
                 let {id,login,email} = response.data.data;
                 dispatch(setAuthUserData(id,login,email, true))
@@ -48,7 +48,7 @@ export const getAuthUserData = () => async (dispatch:any) => {
 }
 
 export const login = (email:string, password:string, rememberMe:boolean) => async (dispatch:any) => {
-    let response = await authApi.login(email,password,rememberMe)
+    let response = await authAPI.login(email,password,rememberMe)
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
             } else {
@@ -58,7 +58,7 @@ export const login = (email:string, password:string, rememberMe:boolean) => asyn
 
 }
 export const logout = () => async (dispatch:any) => {
-    let response = await authApi.logout()
+    let response = await authAPI.logout()
 
             if (response.data.resultCode === 0) {
                 dispatch(setAuthUserData(1, '', '', false))

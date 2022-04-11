@@ -1,4 +1,4 @@
-import {profileAPI, usersApi} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 import {PhotosType} from "./usersReducer";
 
 
@@ -125,7 +125,7 @@ type DispatchType = {
 
 //thunk creator
 export let getUserProfile = (userId:number) => async (dispatch:DispatchCommonType) => {
-    let response = await usersApi.getProfile(userId)
+    let response = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(response.data));
 
 }

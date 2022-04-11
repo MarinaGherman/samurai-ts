@@ -1,4 +1,5 @@
-import {usersApi} from "../api/api";
+import {usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -32,7 +33,7 @@ export type UsersType = {
 }
 let initialState = {
     users: [ ],
-    pagesSize: 5,
+    pagesSize: 10,
     totalUsersCount: 20,
     currentPage: 2,
     isFetching: true,
@@ -116,7 +117,7 @@ export const requestUsers = (page:number, pageSize:number) => {
     return async (dispatch: DispatchCommonType) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-        let data = await usersApi.getUsers(page, pageSize)
+        let data = await usersAPI.getUsers(page, pageSize)
                 dispatch(toggleIsFetching(false))
                 dispatch(setUsers(data.items))
                 dispatch(setTotalCurrentCount(data.totalCount))
@@ -135,15 +136,16 @@ const followUnfollowFlow = async (dispatch:DispatchCommonType, userId: number, a
 
 export const follow = (userId:number) => {
     return async (dispatch:DispatchCommonType) => {
-        let apiMethod = usersApi.follow.bind(usersApi)
+        let apiMethod = usersAPI.follow.bind(usersAPI)
          await followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
 
     }
 }
 
 export const unfollow = (userId:number) => {
+
     return async (dispatch:DispatchCommonType) => {
-        let apiMethod = usersApi.unfollow.bind(usersApi)
+        let apiMethod = usersAPI.unfollow.bind(usersAPI)
          await followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
     }
 }
