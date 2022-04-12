@@ -16,7 +16,6 @@ type PropsTypes = {
 
 }
 let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users,follow,followingInProgress,unfollow }:PropsTypes) => {
-    debugger;
     return <div>
         <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
                    totalItemsCount={totalUsersCount} pageSize={pageSize}/>
