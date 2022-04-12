@@ -13,12 +13,13 @@ type PropsTypes = {
     follow:(userId:number) => void
     unfollow:(userId:number) => void
     followingInProgress:any
+    portionSize:number
 
 }
-let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users,follow,followingInProgress,unfollow }:PropsTypes) => {
+let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users,follow,followingInProgress,unfollow,portionSize }:PropsTypes) => {
     return <div>
         <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
-                   totalItemsCount={totalUsersCount} pageSize={pageSize}/>
+                   totalUsersCount={totalUsersCount} pageSize={pageSize} portionSize={portionSize}/>
 
             {    // @ts-ignore
                 users.map(u => <User user={u}

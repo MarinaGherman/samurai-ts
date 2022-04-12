@@ -31,6 +31,7 @@ type PropsType = {
     followingInProgress:Array<UserType>
     getUsers: (pageNumber:number,pageSize:number) => void
     isFetching: boolean
+    portionSize:number
 }
 
 class UsersContainer extends React.Component<PropsType> {
@@ -55,6 +56,7 @@ class UsersContainer extends React.Component<PropsType> {
                         follow={this.props.follow}
                         unfollow={this.props.unfollow}
                         followingInProgress={this.props.followingInProgress}
+                        portionSize={this.props.portionSize}
                     />
                 </div>
     }
