@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './Paginator.module.css'
 import cn from "classnames";
 
-type PropsType = {
+export type PropsType = {
     totalUsersCount:number
     pageSize:number
     onPageChanged: (pageNumber: number) => void

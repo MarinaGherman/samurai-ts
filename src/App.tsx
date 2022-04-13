@@ -1,21 +1,21 @@
-import React, {Component, ReactNode} from 'react';
+import React, {Component} from 'react';
 import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Route} from 'react-router-dom';
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+// import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import s from './App.module.scss'
-import UsersContainer from './components/users/UsersContainer';
-import ProfileContainer from "./components/Profile/ProfileContainer";
+// import UsersContainer from './components/users/UsersContainer';
+// import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
-import {getAuthUserData} from "./redux/auth-reducer";
 import {initializeApp} from "./redux/app-reducer";
-import Loader from "./components/common/Loader";
 import {compose} from "redux";
 import {AppStateType} from "./redux/redux-store";
 
-
-
+//create lazy bundle for fast rendering of App
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
+const UsersContainer = React.lazy(() => import('./components/users/UsersContainer'))
 
 class App extends Component{
 
@@ -24,10 +24,6 @@ class App extends Component{
         this.props.initializeApp();
     }
     render() {
-        // // @ts-ignore
-        // if(!this.props.initialized) {
-        //     return <Loader/>
-        // }
         return (
             <BrowserRouter>
                 <div className={s.appWrapper}>
@@ -35,11 +31,24 @@ class App extends Component{
                     <Navbar />
                     <div className={s.appWrapperContent}>
                         {/*@ts-ignore*/}
-                        <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                        <Route path='/dialogs' render={() => {
+                            return <React.Suspense fallback ={<div>Loading...</div>}>
+                                <DialogsContainer/>
+                            </React.Suspense>
+
+                        }}/>
                         {/*@ts-ignore*/}
-                        <Route path="/profile/:userId?" render={() => <ProfileContainer/>} />
+                        <Route path="/profile/:userId?" render={() => {
+                            return <React.Suspense fallback ={<div>Loading...</div>}>
+                                <ProfileContainer/>
+                            </React.Suspense>
+                        }} />
                         {/*@ts-ignore*/}
-                        <Route path="/users" render={() => <UsersContainer/>} />
+                        <Route path="/users" render={() =>{
+                            return <React.Suspense fallback ={<div>Loading...</div>}>
+                            <UsersContainer/>
+                            </React.Suspense>
+                        }} />
                         {/*@ts-ignore*/}
                         <Route path="/login" render={() => <Login/>} />
                     </div>
