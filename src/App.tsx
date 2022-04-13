@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import {compose} from "redux";
 import {AppStateType} from "./redux/redux-store";
+import Loader from "./components/common/Loader";
 
 //create lazy bundle for fast rendering of App
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
@@ -32,20 +33,20 @@ class App extends Component{
                     <div className={s.appWrapperContent}>
                         {/*@ts-ignore*/}
                         <Route path='/dialogs' render={() => {
-                            return <React.Suspense fallback ={<div>Loading...</div>}>
+                            return <React.Suspense fallback ={<Loader/>}>
                                 <DialogsContainer/>
                             </React.Suspense>
 
                         }}/>
                         {/*@ts-ignore*/}
                         <Route path="/profile/:userId?" render={() => {
-                            return <React.Suspense fallback ={<div>Loading...</div>}>
+                            return <React.Suspense fallback ={<Loader/>}>
                                 <ProfileContainer/>
                             </React.Suspense>
                         }} />
                         {/*@ts-ignore*/}
                         <Route path="/users" render={() =>{
-                            return <React.Suspense fallback ={<div>Loading...</div>}>
+                            return <React.Suspense fallback ={<Loader/>}>
                             <UsersContainer/>
                             </React.Suspense>
                         }} />
