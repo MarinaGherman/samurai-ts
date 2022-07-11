@@ -2,6 +2,7 @@
   margin: 0 auto;
   display: grid;
   width: 1200px;
+  background: #E5E5E5;
   grid-template-areas:
   "h h"
   "n c";
@@ -12,7 +13,7 @@
   
   .appWrapperContent {
     grid-area: c;
-    background-color: cornflowerblue;
+    background-color: #F7F9FB;
   }
 
 }

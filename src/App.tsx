@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Route} from 'react-router-dom';
-// import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import s from './App.module.scss'
-// import UsersContainer from './components/users/UsersContainer';
-// import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
@@ -18,7 +15,7 @@ const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsCo
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
 const UsersContainer = React.lazy(() => import('./components/users/UsersContainer'))
 
-class App extends Component{
+class App extends Component<any, any>{
 
     componentDidMount() {
         //@ts-ignore
@@ -64,6 +61,6 @@ const mapStateToProps = (state:AppStateType) => {
     state.app.initialized
 }
 
-export default compose<React.ComponentType>( connect(mapStateToProps,{
+export default compose( connect(mapStateToProps,{
     initializeApp
 })) (App);
