@@ -1,9 +1,9 @@
 .nav {
     grid-area: n;
-    background-color: burlywood;
+    background-color: #DAE2E4;
 }
 a {
-    color: white;
+    color: black;
     &.active {
         color: gold !important;
     }

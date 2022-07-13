@@ -10,7 +10,7 @@ export type MyPropsTypes = {
     logout:any
 }
 
-class HeaderContainer extends Component<MyPropsTypes> {
+class HeaderContainer extends Component<MyPropsTypes, any> {
 
     render() {
         // @ts-ignore
