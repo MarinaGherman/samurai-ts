@@ -7,12 +7,16 @@ type ProfilePropsTypes = {
     profile: ProfileType
     status:string
     updateStatus:(status:string) => void
+    isOwner: boolean
 }
 
 const Profile = (props:ProfilePropsTypes) => {
+    // @ts-ignore
     return (
         <div >
             <ProfileInfo
+                // @ts-ignore
+                isOwner={props.isOwner}
                 profile={props.profile}
                 status={props.status}
                 updateStatus={props.updateStatus}

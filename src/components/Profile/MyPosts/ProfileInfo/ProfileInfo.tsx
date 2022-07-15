@@ -18,6 +18,7 @@ type ProfileInfoTypes = {
     profile: ProfileType
     status:string
     updateStatus:(status:string) => void
+    isOwner: boolean
 }
 
 const images: any = {
@@ -53,6 +54,7 @@ const ProfileInfo = (props:ProfileInfoTypes) => {
                     </div>
                         : ''
                 }
+                {props.isOwner && <input type="file"/>}
                 <ProfileStatusWithHooks
                     status={props.status}
                     updateStatus={props.updateStatus}

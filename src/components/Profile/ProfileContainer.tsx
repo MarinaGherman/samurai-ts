@@ -44,7 +44,9 @@ class ProfileContainer extends Component<PropsType, any> {
        this.refreshProfile()
     }
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<any>, snapshot?: any) {
-        this.refreshProfile()
+        if (this.props.match.params.userId !== prevProps.match.params.userId ){
+            this.refreshProfile()
+        }
     }
 
     render() {
@@ -52,6 +54,7 @@ class ProfileContainer extends Component<PropsType, any> {
             <>
               <Profile
                   {...this.props}
+                  isOwner={!this.props.match.params.userId}
                   profile={this.props.profile}
                   status={this.props.status}
                   updateStatus={this.props.updateStatus}
