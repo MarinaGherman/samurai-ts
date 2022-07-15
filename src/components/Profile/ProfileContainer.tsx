@@ -26,9 +26,9 @@ type ownPropsType = mapStateToPropsType & mapDispatchPropsType
 type PropsType = RouteComponentProps<pathUserIdType> & ownPropsType
 
 
-class ProfileContainer extends Component<PropsType> {
+class ProfileContainer extends Component<PropsType, any> {
 
-    componentDidMount() {
+    refreshProfile () {
         let userId:number = this.props.match.params.userId;
         if(!userId) {
             userId = this.props.authorizedUserId;
@@ -38,6 +38,13 @@ class ProfileContainer extends Component<PropsType> {
         }
         this.props.getUserProfile(userId);
         this.props.getStatus(userId)
+    }
+
+    componentDidMount() {
+       this.refreshProfile()
+    }
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<any>, snapshot?: any) {
+        this.refreshProfile()
     }
 
     render() {

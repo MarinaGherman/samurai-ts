@@ -1,6 +1,6 @@
 import React from 'react';
 import { InjectedFormProps, reduxForm} from 'redux-form'
-import {createField, Input} from "../common/formsControls/FormsControls";
+import {Check, createField, Input} from "../common/formsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import { connect } from 'react-redux';
 import {login} from "../../redux/auth-reducer";
@@ -25,7 +25,7 @@ const LoginForm:React.FC<InjectedFormProps<formDataType>> = ({handleSubmit,error
             <form onSubmit={handleSubmit}>
                 {createField("E-mail",Input,'email',[required])}
                 {createField("password",Input,'password',[required], {type: "password"})}
-                {createField("rememberMe",Input,'rememberMe',[], {type: "checkbox"})}
+                {createField("rememberMe",Check,'rememberMe',[], {type: "checkbox"})}
                 <div>
                     remember me
                 </div>
