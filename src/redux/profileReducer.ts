@@ -49,7 +49,7 @@ export type ActionType = {
     profile:ProfileType
     status:string
     postId: number
-    photos: PhotosType
+    photos: any
 }
 
 
@@ -152,7 +152,7 @@ export let updateStatus = (status:string) => async (dispatch:DispatchCommonType)
 export let savePhoto = (file:any) => async (dispatch:DispatchCommonType) => {
     let response = await profileAPI.savePhoto(file)
     if(response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.photos))
+        dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
 
