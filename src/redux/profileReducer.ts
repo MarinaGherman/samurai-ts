@@ -6,6 +6,7 @@ export const ADD_POST = 'ADD-POST';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_STATUS = 'SET_STATUS';
 export const DELETE_POST = 'DELETE_POST';
+export const SAVE_PHOTO = 'SAVE_PHOTO';
 
 
 export type PostType = {
@@ -43,11 +44,12 @@ export type ProfileType = {
 
 export type ActionType = {
     newPostText: string;
-    type: 'SET_USER_PROFILE' | 'SET_STATUS' |'ADD-POST' | "DELETE_POST"
+    type: 'SET_USER_PROFILE' | 'SET_STATUS' |'ADD-POST' | "DELETE_POST" | 'SAVE_PHOTO'
     text:string
     profile:ProfileType
     status:string
     postId: number
+    photos: PhotosType
 }
 
 
@@ -92,6 +94,8 @@ const profileReducer = (state:PostsType = initialState,action:ActionType) => {
                 ...state, posts: state.posts.filter(f=> f.id !== action.postId)
             }
         }
+        case SAVE_PHOTO:
+            return {...state, profile: {...state.profile, photos: action.photos}}
         default:
             return state;
     }
@@ -114,6 +118,10 @@ export let setStatus = (status:string) => ({
 export let deletePost = (postId:number) => ({
     type: DELETE_POST,
     postId
+})
+export let savePhotoSuccess = (photos:PhotosType) => ({
+    type: SAVE_PHOTO,
+    photos
 })
 
 
@@ -140,6 +148,12 @@ export let updateStatus = (status:string) => async (dispatch:DispatchCommonType)
     let response = await profileAPI.updateStatus(status)
     if(response.data.resultCode === 0)
         dispatch(setStatus(status));
+}
+export let savePhoto = (file:any) => async (dispatch:DispatchCommonType) => {
+    let response = await profileAPI.savePhoto(file)
+    if(response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.photos))
+    }
 }
 
 export default profileReducer;

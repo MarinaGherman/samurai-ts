@@ -18,7 +18,8 @@ type ProfileInfoTypes = {
     profile: ProfileType
     status:string
     updateStatus:(status:string) => void
-    isOwner: boolean
+    isOwner: boolean,
+    savePhoto:any
 }
 
 const images: any = {
@@ -36,6 +37,11 @@ const contacts = Object.keys(images)
 const ProfileInfo = (props:ProfileInfoTypes) => {
     if(!props.profile)
     {return <Loader/>}
+    const onMainPhotoSelected =(e:any) => {
+        if(e.target.files.length) {
+            props.savePhoto(e.target.files[0])
+        }
+    }
     return (
         <div className={s.main}>
             <div>
@@ -54,7 +60,7 @@ const ProfileInfo = (props:ProfileInfoTypes) => {
                     </div>
                         : ''
                 }
-                {props.isOwner && <input type="file"/>}
+                {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
                 <ProfileStatusWithHooks
                     status={props.status}
                     updateStatus={props.updateStatus}
