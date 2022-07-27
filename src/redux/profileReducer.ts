@@ -30,6 +30,10 @@ type ContactsType = {
     twitter?: string,
     instagram?: string,
     whatsApp?: string
+    github: string
+    website: string
+    youtube: string
+    mainLink: string
 }
 
 export type ProfileType = {
