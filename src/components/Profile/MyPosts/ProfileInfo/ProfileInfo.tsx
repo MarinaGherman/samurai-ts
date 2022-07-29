@@ -2,16 +2,17 @@ import React, {useState} from 'react';
 import s from './ProfileInfo.module.scss'
 import Loader from "../../../common/Loader";
 import avatar from './../../../../assets/images/avatar.png'
-import lookJob from "../../../../assets/images/lookJob.png";
 import ProfileStatusWithHooks from "../../ProfileStatusWithHooks";
-import {ProfileType} from "../../../../redux/profileReducer";
+import {ProfileType, saveProfile} from "../../../../redux/profileReducer";
+import ProfileDataForm from "../../ProfileDataForm";
 
 type ProfileInfoTypes = {
     profile: ProfileType
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean,
-    savePhoto: any
+    savePhoto: any,
+    saveProfile:any
 }
 
 const ProfileInfo = (props: ProfileInfoTypes) => {
@@ -26,13 +27,18 @@ const ProfileInfo = (props: ProfileInfoTypes) => {
             props.savePhoto(e.target.files[0])
         }
     }
+    const onSubmit = (formData:any) => {
+        saveProfile(formData);
+        setEditMode(false)
+    }
+
     return (
         <div className={s.main}>
             {
+                // @ts-ignore
+                !props.profile.photos.large ? <img src={avatar} alt="img"/> :
                     // @ts-ignore
-                    !props.profile.photos.large ? <img src={avatar} alt="img"/> :
-                        // @ts-ignore
-                        <img src={props.profile.photos.large} alt="img"/>
+                    <img src={props.profile.photos.large} alt="img"/>
             }
             {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
             <div>Статус:</div>
@@ -40,10 +46,13 @@ const ProfileInfo = (props: ProfileInfoTypes) => {
                 status={props.status}
                 updateStatus={props.updateStatus}
             />
-            {editMode ?  <ProfileDataForm profile={props.profile} /> :
-                    <ProfileData isOwner={props.isOwner}
-                                 profile={props.profile}
-                                 goToEditMode={() => setEditMode(true)}/>
+
+            {editMode ?
+                // @ts-ignore
+                <ProfileDataForm initialValues={props.profile} onSubmit={onSubmit}/> :
+                <ProfileData isOwner={props.isOwner}
+                             profile={props.profile}
+                             goToEditMode={() => setEditMode(true)}/>
             }
 
         </div>
@@ -54,18 +63,19 @@ const Contact = ({contactTitle, contactValue}: any) => {
 }
 
 const ProfileData =({profile, isOwner, goToEditMode}:any) => {
-return  <div className={s.jobBlock}>
-    <div className={s.iconJobBlock}>
-        <img className={s.icon} src={lookJob} alt="img"/>
-    </div>
-    <h2 className={s.name}>{profile.fullName}</h2>
-    <h4>Описание работы</h4>
-    <p>{profile.lookingForAJobDescription}</p>
-    <div className={s.profileInfo}>
-        <b>About me:</b>
-        <h3>{profile.aboutMe}</h3>
-    </div>
-    <div className={s.contacts}>
+    return  <div className={s.jobBlock}>
+        <div>
+            <b>Full name: </b> {profile.fullName}
+        </div>
+        <div>
+            <b>Looking for a job: </b> {profile.lookingForAJob ? "yes" : 'no'}
+        </div>
+            <div>
+                <b>My skills:</b>  {profile.lookingForAJobDescription}
+            </div>
+        <div>
+            <b>About me:</b> {profile.aboutMe}
+        </div>
         <b>Contacts:</b>
         {
             Object.keys(profile.contacts).map(key => <Contact
@@ -74,14 +84,7 @@ return  <div className={s.jobBlock}>
                 contactValue={profile.contacts[key]}/>
             )
         }
-    </div>
-    {isOwner && <button onClick={goToEditMode}>Edit</button>}
-</div>
-}
-const ProfileDataForm =({profile}:any) => {
-    return  <div >
-        form
-
+        {isOwner && <button onClick={goToEditMode}>Edit</button>}
     </div>
 }
 

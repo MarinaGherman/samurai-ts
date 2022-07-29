@@ -129,6 +129,7 @@ export let savePhotoSuccess = (photos:PhotosType) => ({
 })
 
 
+
 type DispatchCommonType = (dispatch:DispatchType) => void
 type DispatchType = {
     type: string
@@ -157,6 +158,14 @@ export let savePhoto = (file:any) => async (dispatch:DispatchCommonType) => {
     let response = await profileAPI.savePhoto(file)
     if(response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+}
+export let saveProfile = (profile:any) => async (dispatch:DispatchCommonType, getState:any ) => {
+    const userId = getState().auth.userId;
+    let response = await profileAPI.saveProfile(profile)
+    if(response.data.resultCode === 0) {
+        // @ts-ignore
+        dispatch(getUserProfile(userId))
     }
 }
 

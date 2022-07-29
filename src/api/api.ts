@@ -1,4 +1,5 @@
 import axios from "axios";
+import {saveProfile} from "../redux/profileReducer";
 
 
 
@@ -38,6 +39,9 @@ export const profileAPI = {
     },
     updateStatus(status:string) {
         return instance.put(`profile/status`,{status: status})
+    },
+    saveProfile(profile:string) {
+        return instance.put(`profile/`,profile)
     },
     savePhoto(photo:any) {
         const formData = new FormData();
