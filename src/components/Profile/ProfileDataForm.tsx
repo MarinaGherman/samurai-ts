@@ -3,7 +3,7 @@ import {createField, Input, Textarea} from "../common/formsControls/FormsControl
 import {reduxForm} from "redux-form";
 
 
-const ProfileDataForm = ({ handleSubmit}:any) => {
+const ProfileDataForm = ({handleSubmit,profile}:any) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -20,13 +20,10 @@ const ProfileDataForm = ({ handleSubmit}:any) => {
                 <b>About me:</b> {createField("About me", Textarea,"aboutMe", [] )}
             </div>
                 <b>Contacts:</b>
-                {
-                    // Object.keys(profile.contacts).map(key => <Contact
-                    //     key={key}
-                    //     contactTitle={key}
-                    //     contactValue={profile.contacts[key]}/>
-                    // )
-                }
+            {Object.keys(profile.contacts).map(key => {
+            return <div>
+                           <b>{key}:</b>   {createField("key", Input,"contacts." + key, [] )}
+                    </div>})}
                 <div>
                     <button>Save</button>
                 </div>
