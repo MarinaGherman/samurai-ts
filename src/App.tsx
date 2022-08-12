@@ -11,7 +11,7 @@ import Loader from "./components/common/Loader";
 import Header from "./components/Header/Header";
 
 //create lazy bundle for fast rendering of App
-const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
+const Dialogs = React.lazy(() => import("./components/Dialogs/Dialogs"))
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
 const UsersContainer = React.lazy(() => import('./components/users/UsersContainer'))
 
@@ -31,7 +31,7 @@ class App extends Component<any, any>{
                         {/*@ts-ignore*/}
                         <Route path='/dialogs' render={() => {
                             return <React.Suspense fallback ={<Loader/>}>
-                                <DialogsContainer/>
+                                <Dialogs/>
                             </React.Suspense>
 
                         }}/>

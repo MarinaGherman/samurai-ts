@@ -1,10 +1,11 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialogs.module.scss';
-import {DialogsType} from "../../redux/dialogsReducer";
+import { sendMessageActionCreator} from "../../redux/dialogsReducer";
 import  {reduxForm,Field} from "redux-form";
 import {Textarea} from "../common/formsControls/FormsControls";
 import {maxlengthCreator, required} from "../../utils/validators/validators";
+import {useDispatch, useSelector} from "react-redux";
 
 //DialogItem
 type DialogItemType = {
@@ -32,21 +33,20 @@ const Message = (props: MessageType) => {
     )
 }
 
-type DialogsPropsType = {
-    updateNewMessageBody:(body:string) => void
-    sendMessage: (newMessageBody:string) => void
-    dialogsPage:DialogsType
-    isAuth: boolean
-}
+
 //Dialogs
-const Dialogs = (props:DialogsPropsType) => {
+const Dialogs = () => {
+    const dispatch = useDispatch()
+    const dialogsPage = useSelector(state => {
+        // @ts-ignore
+        return state.dialogsPage;
+    })
 
-    let state = props.dialogsPage;
-    let dialogsElements =  state.dialogs.map((dialog)=> <DialogItem name={dialog.name} id={dialog.id}/>)
-    let messagesElements = state.messages.map((dialog)=> <Message id={dialog.id} message={dialog.message}/>)
+    const dialogsElements =  dialogsPage.dialogs.map((dialog:DialogItemType)=> <DialogItem name={dialog.name} id={dialog.id}/>)
+    const messagesElements = dialogsPage.messages.map((message:MessageType)=> <Message id={message.id} message={message.message}/>)
 
-    let addNewMessage = (values:any) => {
-        props.sendMessage(values.newMessageBody)
+    const addNewMessage = (values:any) => {
+        dispatch(sendMessageActionCreator(values.newMessageBody))
     }
 
     return (
