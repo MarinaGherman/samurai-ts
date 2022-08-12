@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileInfo from "./MyPosts/ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import MyPosts from "./MyPosts/MyPosts";
 import {ProfileType} from "../../redux/profileReducer";
 
 type ProfilePropsTypes = {
@@ -13,11 +13,9 @@ type ProfilePropsTypes = {
 }
 
 const Profile = (props:ProfilePropsTypes) => {
-    // @ts-ignore
     return (
         <div >
             <ProfileInfo
-                // @ts-ignore
                 isOwner={props.isOwner}
                 profile={props.profile}
                 status={props.status}
@@ -25,7 +23,7 @@ const Profile = (props:ProfilePropsTypes) => {
                 savePhoto={props.savePhoto}
                 saveProfile={props.saveProfile}
             />
-            <MyPostsContainer/>
+            <MyPosts />
         </div>
     )
 }

@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Route} from 'react-router-dom';
 import s from './App.module.scss'
-import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import {compose} from "redux";
 import {AppStateType} from "./redux/redux-store";
 import Loader from "./components/common/Loader";
+import Header from "./components/Header/Header";
 
 //create lazy bundle for fast rendering of App
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
@@ -25,7 +25,7 @@ class App extends Component<any, any>{
         return (
             <BrowserRouter>
                 <div className={s.appWrapper}>
-                    <HeaderContainer/>
+                    <Header/>
                     <Navbar />
                     <div className={s.appWrapperContent}>
                         {/*@ts-ignore*/}

@@ -1,23 +1,23 @@
 import React from 'react';
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
-import {PostType} from "../../../redux/profileReducer";
 import {Field, reduxForm} from "redux-form";
 import {maxlengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/formsControls/FormsControls";
+import {useDispatch, useSelector} from "react-redux";
+import {addPostActionCreator} from "../../../redux/profileReducer";
 
-type MyPostsPropsTypes = {
-    posts:PostType[]
-    addPost: (newPostText: string) => void
-}
+const MyPosts = React.memo(() => {
+    const dispatch = useDispatch()
 
-const MyPosts = React.memo((props: MyPostsPropsTypes) => {
-    let postElements =
-        props.posts.map((p) => <Post message={p.message} likesCount={p.likeCount}/>)
+    const posts = useSelector(state => {
+        // @ts-ignore
+        return state.profilePage.posts;
+    })
 
 
-    let onAddPost = (values: any) => {
-        props.addPost(values.newPostText);
+    const onAddPost = (values: any) => {
+        dispatch(addPostActionCreator(values.newPostText))
     }
 
     return (
@@ -25,7 +25,7 @@ const MyPosts = React.memo((props: MyPostsPropsTypes) => {
             My posts
             <AddNewPostFormRedux onSubmit={onAddPost}/>
             <div className={s.posts}>
-                {postElements}
+                {posts.map((p: any) => <Post message={p.message} likesCount={p.likeCount}/>)}
             </div>
         </div>
     )
