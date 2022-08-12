@@ -1,26 +1,25 @@
-import React, {Component, ReactNode} from 'react';
+import React from 'react';
 import Header from "./Header";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {logout} from "../../redux/auth-reducer";
-import {AppStateType} from "../../redux/redux-store";
 
-export type MyPropsTypes = {
-    children?: ReactNode
-    login:any
-    logout:any
-}
 
-class HeaderContainer extends Component<MyPropsTypes, any> {
 
-    render() {
+
+const HeaderContainer = (props:any) => {
+    const isAuth = useSelector(state => {
         // @ts-ignore
-        return <Header {...this.props}/>
-    }
-}
-const mapStateToProps =(state:AppStateType) => ({
-    isAuth: state.auth.isAuth,
-    login: state.auth.login
-})
-export default connect(mapStateToProps,{
+        return state.auth.isAuth;
+    })
+    const login = useSelector(state => {
+        // @ts-ignore
+        return state.auth.login;
+    })
+
+    return <Header isAuth={isAuth} login={login} {...props}/>
+};
+
+
+export default connect(null,{
     logout
 })(HeaderContainer);
