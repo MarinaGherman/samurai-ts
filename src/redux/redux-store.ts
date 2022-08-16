@@ -1,14 +1,19 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import profileReducer from "./profileReducer";
 import dialogsReducer from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 import usersReducer from "./usersReducer";
-import authReducer from "./auth-reducer";
-import AppReducer from "./app-reducer";
+import authReducer, {ActionAuthType} from "./auth-reducer";
+import AppReducer, {appActionType} from "./app-reducer";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
-export type AppStateType = ReturnType<typeof rootReducer>
+export type RootActionsType = ActionAuthType | appActionType  //сюда нужно добавлять свои типизации акшенов через или
+export type AppThunkDispatch = ThunkDispatch<AppStoreType, null, RootActionsType>;
+export type AppStoreType = ReturnType<typeof rootReducer>
+export const useAppSelector: TypedUseSelectorHook<AppStoreType> = useSelector;
+export const useAppDispatch: () => AppThunkDispatch = useDispatch;
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
