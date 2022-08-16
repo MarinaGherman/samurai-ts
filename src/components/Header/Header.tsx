@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './Header.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../../redux/auth-reducer";
+import {logoutTC} from "../../redux/auth-reducer";
 
 
 
@@ -22,7 +22,7 @@ const Header = () => {
         <div className={s.loginBlock}>
             {isAuth
                 ?  <div>{login} -
-                        <button onClick={() => dispatch(logout())}>LogOut</button>
+                        <button onClick={() => dispatch(logoutTC())}>LogOut</button>
                     </div>
                 : <NavLink to={'./login'}>Login</NavLink>}
         </div>

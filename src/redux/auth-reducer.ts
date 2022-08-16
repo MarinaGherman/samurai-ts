@@ -47,7 +47,7 @@ export const getAuthUserData = () => async (dispatch:any) => {
             }
 }
 
-export const login = (email:string, password:string, rememberMe:boolean) => async (dispatch:any) => {
+export const loginTC = (email:string, password:string, rememberMe:boolean) => async (dispatch:any) => {
     let response = await authAPI.login(email,password,rememberMe)
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
@@ -57,7 +57,7 @@ export const login = (email:string, password:string, rememberMe:boolean) => asyn
             }
 
 }
-export const logout = () => async (dispatch:any) => {
+export const logoutTC = () => async (dispatch:any) => {
     let response = await authAPI.logout()
 
             if (response.data.resultCode === 0) {
