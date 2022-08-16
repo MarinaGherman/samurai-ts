@@ -1,87 +1,64 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Users from "./Users";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
 import Loader from "../common/Loader";
 
 import {
-    follow,
+    followTC,
     setCurrentPage,
-    unfollow,
-    toggleFollowingProgress,
-    requestUsers, UsersType, UserType
+    unfollowTC,
+    getUsersTC
 } from "../../redux/usersReducer";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {compose} from "redux";
-import {
-    getCurrentPage,
-    getFollowingInProgress,
-    getIsFetching,
-    getPageSize,
-    getTotalUsersCount, getUsers
-} from "../../redux/user-selectors";
+
+import Paginator from "./Paginator";
+import User from "./User";
 
 
-type PropsType = {
-    users:UsersType
-    totalUsersCount:number
-    pageSize:number
-    currentPage:number
-    follow:(userId:number) => void
-    unfollow:(userId:number) => void
-    followingInProgress:Array<UserType>
-    getUsers: (pageNumber:number,pageSize:number) => void
-    isFetching: boolean
-    portionSize:number
-}
-
-class UsersContainer extends React.Component<PropsType> {
-    componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+const UsersContainer =() => {
+    const dispatch = useDispatch()
+    //@ts-ignore
+    const users = useSelector(state => state.usersPage.users)
+    //@ts-ignore
+    const pageSize = useSelector(state => state.usersPage.pageSize)
+    //@ts-ignore
+    const totalUsersCount = useSelector(state => state.usersPage.totalCount)
+    //@ts-ignore
+    const currentPage = useSelector(state => state.usersPage.currentPage)
+    //@ts-ignore
+    const isFetching = useSelector(state => state.usersPage.isFetching)
+    //@ts-ignore
+    const followingInProgress = useSelector(state => state.usersPage.following)
+    //
+    const onPageChanged = (pageNumber:any) => {
+        dispatch(setCurrentPage(pageNumber))
     }
 
-    onPageChanged = (pageNumber:any) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
-    }
-    render() {
-        return <div>
+    useEffect(() => {
+
+        dispatch(getUsersTC(currentPage, pageSize))
+
+    },[currentPage, pageSize])
+
+        return <>
+
             {
-                this.props.isFetching ? <Loader/> : null
+               isFetching ? <Loader/> : null
             }
-                    <Users
-                        users={this.props.users}
-                        totalUsersCount={this.props.totalUsersCount}
-                        pageSize={this.props.pageSize}
-                        currentPage={this.props.currentPage}
-                        onPageChanged={this.onPageChanged}
-                        follow={this.props.follow}
-                        unfollow={this.props.unfollow}
-                        followingInProgress={this.props.followingInProgress}
-                        portionSize={this.props.portionSize}
-                    />
-                </div>
-    }
-}
+            <Paginator currentPage={currentPage}
+                       onPageChanged={onPageChanged}
+                       totalUsersCount={totalUsersCount}
+                       pageSize={pageSize}
+                       portionSize={10}/>
 
-//with using user-selectors
-let mapStateToProps = (state:any) => {
-    return{
-        users: getUsers(state),
-        pageSize: getPageSize(state),
-        totalUsersCount: getTotalUsersCount(state),
-        currentPage: getCurrentPage(state),
-        isFetching: getIsFetching(state),
-        followingInProgress: getFollowingInProgress(state)
-    }
-}
+            {users.map((u:any) => <User user={u}
+                followingInProgress={followingInProgress}
+                key={u.id}
+                unfollow={() => dispatch(unfollowTC)}
+                follow={() => dispatch(followTC)}/>)}
 
+        </>}
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {
-        unfollow,
-        follow,
-        setCurrentPage,
-        toggleFollowingProgress,
-        getUsers: requestUsers
-    }),
-    withAuthRedirect)(UsersContainer)
+    export default UsersContainer;
+
 
 

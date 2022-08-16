@@ -1,7 +1,4 @@
 import axios from "axios";
-import {saveProfile} from "../redux/profileReducer";
-
-
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -29,6 +26,32 @@ export const usersAPI = {
         return profileAPI.getProfile(userId);
     }
 }
+
+export type PhotoRequestType = {
+    small: string
+    large: string
+}
+
+export type ProfileRequestType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsRequestType
+    photos: PhotoRequestType
+}
+
+export type ContactsRequestType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram:  string
+    twitter:  string
+    website:  string
+    youtube: string
+    mainLink: string
+}
+
 
 export const profileAPI = {
     getProfile(userId:number) {
