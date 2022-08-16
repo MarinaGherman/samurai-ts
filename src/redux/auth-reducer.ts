@@ -19,7 +19,7 @@ type AuthType ={
 }
 
 let initialState ={
-    userId: 1,
+    userId: 0,
     email: '',
     login: '',
     isAuth: false
@@ -61,7 +61,7 @@ export const logoutTC = () => async (dispatch:any) => {
     let response = await authAPI.logout()
 
             if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(1, '', '', false))
+                dispatch(setAuthUserData(0, '', '', false))
             }
 }
 
