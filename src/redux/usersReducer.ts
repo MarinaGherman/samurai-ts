@@ -31,7 +31,7 @@ export type UsersPageType = {
     totalCount: number
     currentPage: number
     isFetching: boolean
-    following: Array<string>
+    following: (string | number)[]
 }
 
 
@@ -61,11 +61,9 @@ export const usersReducer = (state: UsersPageType = initialState, action: UserAc
             return {...state, isFetching: action.isFetching}
         case TOGGLE_IS_FOLLOWING_PROGRESS:
             return {
-                //@ts-ignore
-                ...state, following: action.followingIsProgress
-                    ? [...state.following, action.userId]
-                    //@ts-ignore
-                    : state.following.filter(id => id !== action.userId)
+                ...state, following: !action.followingIsProgress
+                    ? state.following.filter((id: (string | number)) => id !== action.userId)
+                    : [...state.following, action.userId]
             }
         default:
             return state;
