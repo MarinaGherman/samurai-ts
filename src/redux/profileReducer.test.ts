@@ -5,7 +5,7 @@ let state: InitialStateType  = {
         {id:1, message: "Hi, how are you?", likeCount: 12},
         {id:23, message: "It's my first post", likeCount: 132}
     ],
-    profile: null,
+    profile: undefined,
     status: "",
     newPostText: '',
 }

@@ -18,7 +18,7 @@ let initialState = {
         {id:1, message: "Hi, how are you?", likeCount: 12},
         {id:23, message: "It's my first post", likeCount: 132}
     ],
-    profile: null,
+    profile: undefined,
     status: "",
     newPostText: '',
 }
@@ -30,7 +30,6 @@ const profileReducer = (state:InitialStateType = initialState, action: ProfileAc
         case ADD_POST: {
             let newPost = {
                 id: 5,
-                //@ts-ignore
                 message: action.newPostText,
                 likeCount: 0
             };
@@ -49,13 +48,11 @@ const profileReducer = (state:InitialStateType = initialState, action: ProfileAc
         }
         case SET_STATUS: {
             return {
-
                 ...state, status: action.status
             }
         }
         case DELETE_POST: {
             return {
-
                 ...state, posts: state.posts.filter(f=> f.id !== action.postId)
             }
         }
