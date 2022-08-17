@@ -2,6 +2,7 @@ import React from 'react';
 import ProfileInfo from "./MyPosts/ProfileInfo/ProfileInfo";
 import MyPosts from "./MyPosts/MyPosts";
 import {ProfileType} from "../../redux/profileReducer";
+import {Box} from "@mui/material";
 
 type ProfilePropsTypes = {
     profile: ProfileType
@@ -14,7 +15,7 @@ type ProfilePropsTypes = {
 
 const Profile = (props:ProfilePropsTypes) => {
     return (
-        <div >
+        <Box >
             <ProfileInfo
                 isOwner={props.isOwner}
                 profile={props.profile}
@@ -24,7 +25,7 @@ const Profile = (props:ProfilePropsTypes) => {
                 saveProfile={props.saveProfile}
             />
             <MyPosts />
-        </div>
+        </Box>
     )
 }
 

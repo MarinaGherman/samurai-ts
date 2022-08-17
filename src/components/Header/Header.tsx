@@ -7,8 +7,6 @@ import logo from './../../assets/images/main-logo.svg'
 import {Box, Grid} from '@mui/material';
 import ButtonComponent from "../common/ButtonComponent";
 
-
-
 const Header = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector(state => {
@@ -33,9 +31,10 @@ const Header = () => {
                 <Grid item xs={6}>
                     <div className={s.loginBlock}>
                         {isAuth
-                            ?  <div>{login}
+                            ?  <div>
+                                <span className={s.loginText}> {login}</span>
                                 <ButtonComponent
-                                    title={'Logout'}
+                                    title={'LogOut'}
                                     onClick={() => dispatch(logoutTC())}/>
                             </div>
                             : <NavLink to={'./login'}>

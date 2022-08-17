@@ -1,14 +1,15 @@
 .header {
-    grid-area: h;
     background-color: white;
-    height: 100%;
-    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    padding: 5px;
     .logo {
         display: flex;
         align-items: center
     }
     .logoText {
-        margin-left: 20px;
+        margin-left: 10px;
         color: #193fb4;
     }
 }
@@ -18,7 +19,12 @@
 
 .loginBlock {
     float: right;
+    .loginText {
+        margin-right: 10px;
+        color: #193fb4;
+    }
     .login {
         color: #193fb4;
+
     }
 }

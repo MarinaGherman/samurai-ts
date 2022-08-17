@@ -1,6 +1,24 @@
 .nav {
-    grid-area: n;
-    background-color: #DAE2E4;
+    background-color: #1A40B4;
+
+    .navBlock {
+        padding: 10px 20px;
+        margin: 5px 0 5px 5px;
+        background-color: hsla(0,0%,100%,.2);
+        display: flex;
+        align-items: center;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        .icon {
+            color: white;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .iconText {
+            color: white;
+            cursor: pointer;
+        }
+    }
 }
 a {
     color: black;

@@ -21,7 +21,6 @@ const ProfileContainer = ({ ...props }) => {
 
 
     useEffect(() => {
-        console.log(authorizedUserId)
         if (authorizedUserId) {
             dispatch(getUserProfile(parseInt(authorizedUserId)));
             dispatch(getStatus(parseInt(authorizedUserId)));
