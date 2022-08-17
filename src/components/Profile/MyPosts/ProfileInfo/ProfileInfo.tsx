@@ -35,9 +35,7 @@ const ProfileInfo = (props: ProfileInfoTypes) => {
     return (
         <div className={s.main}>
             {
-                // @ts-ignore
                 !props.profile.photos.large ? <img src={avatar} alt="img"/> :
-                    // @ts-ignore
                     <img src={props.profile.photos.large} alt="img"/>
             }
             {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
@@ -48,7 +46,6 @@ const ProfileInfo = (props: ProfileInfoTypes) => {
             />
 
             {editMode ?
-                // @ts-ignore
                 <ProfileDataForm initialValues={props.profile} onSubmit={onSubmit}/> :
                 <ProfileData isOwner={props.isOwner}
                              profile={props.profile}

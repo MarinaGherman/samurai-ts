@@ -1,4 +1,4 @@
-import { profileAPI, ProfileRequestType, usersAPI} from "../api/api";
+import { profileAPI, usersAPI} from "../api/api";
 import {PhotosType} from "./usersReducer";
 import {AppThunkDispatch} from "./redux-store";
 
@@ -8,8 +8,29 @@ export const SET_STATUS = 'SET_STATUS';
 export const DELETE_POST = 'DELETE_POST';
 export const SAVE_PHOTO = 'SAVE_PHOTO';
 
-export type ProfileType = ProfileRequestType & {
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsRequestType
+    photos: PhotoRequestType
     aboutMe?: string | undefined
+}
+
+export type ContactsRequestType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram:  string
+    twitter:  string
+    website:  string
+    youtube: string
+    mainLink: string
+}
+export type PhotoRequestType = {
+    small: string
+    large: string
 }
 
 //state
@@ -124,7 +145,6 @@ export let saveProfile = (profile:any) => async (dispatch:AppThunkDispatch, getS
     const userId = getState().auth.userId;
     let response = await profileAPI.saveProfile(profile)
     if(response.data.resultCode === 0) {
-        // @ts-ignore
         await dispatch(getUserProfile(userId))
     }
 }

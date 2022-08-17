@@ -1,6 +1,7 @@
 import {usersAPI} from "../api/api";
 import { AppThunkDispatch} from "./redux-store";
 import {setAppErrorAC, setAppStatusAC} from "./app-reducer";
+import {handleServerNetworkError} from "../utils/errorUtils";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -100,7 +101,7 @@ export const getUsersTC = (currentPage: number, pageSize: number) => async (disp
         dispatch(setTotalCurrentCount(totalCount));
     } catch (error: any) {
         console.log("Error when you try get users", error)
-        // handleServerNetworkError(error, dispatch)
+        handleServerNetworkError(error, dispatch)
     }
 }
 
@@ -127,7 +128,7 @@ export const followTC = (userId: number) => async (dispatch: AppThunkDispatch) =
         dispatch(toggleFollowingProgress(false, userId));
     } catch (error: any) {
         console.log("Error when you try follow user", error)
-        // handleServerNetworkError(error, dispatch)
+        handleServerNetworkError(error, dispatch)
     }
 }
 

@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
+import {ProfileType} from "../redux/profileReducer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -16,10 +17,10 @@ export const usersAPI = {
             });
     },
     follow(userId:number) {
-        return instance.post(`follow/${userId}`)
+        return instance.post<RespType<AuthDataType>>(`follow/${userId}`)
     },
     unfollow(userId:number) {
-        return instance.delete(`follow/${userId}`)
+        return instance.delete<RespType<AuthDataType>>(`follow/${userId}`)
     },
     getProfile(userId:number) {
         console.warn('Obsolete method. Please profileAPI object.')
@@ -27,41 +28,28 @@ export const usersAPI = {
     }
 }
 
-export type PhotoRequestType = {
-    small: string
-    large: string
+export type AuthDataType = {
+    id:number,
+    email: string
+    login:string
 }
-
-export type ProfileRequestType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsRequestType
-    photos: PhotoRequestType
-}
-
-export type ContactsRequestType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram:  string
-    twitter:  string
-    website:  string
-    youtube: string
-    mainLink: string
+export type RespType<T = {}> = {
+    resultCode: 0
+    data: T
+    fieldsErrors: Array<string>
+    messages: Array<string>
 }
 
 
 export const profileAPI = {
     getProfile(userId:number) {
-        return instance.get(`profile/` + userId)
+        return instance.get<ProfileType>(`profile/` + userId)
     },
     getStatus(userId:number) {
-        return instance.get(`profile/status/` + userId)
+        return instance.get<AxiosResponse<RespType>, any>(`profile/status/` + userId)
     },
     updateStatus(status:string) {
-        return instance.put(`profile/status`,{status: status})
+        return instance.put<AxiosResponse<RespType>, any>(`profile/status`,{status: status})
     },
     saveProfile(profile:string) {
         return instance.put(`profile/`,profile)
@@ -69,7 +57,7 @@ export const profileAPI = {
     savePhoto(photo:any) {
         const formData = new FormData();
         formData.append('image', photo);
-        return instance.put(`profile/photo`, formData, {
+        return instance.put<RespType<{photos:{small:"", large:""}}>>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -80,11 +68,11 @@ export const profileAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`)},
+        return instance.get<RespType<AuthDataType>>(`auth/me`)},
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post(`auth/login`,{email,password,rememberMe})},
+        return instance.post<RespType<AuthDataType>>(`auth/login`,{email,password,rememberMe})},
     logout() {
-        return instance.delete(`auth/login`)},
+        return instance.delete<RespType<AuthDataType>>(`auth/login`)},
 }
 
 
