@@ -1,12 +1,13 @@
-import profileReducer, {addPostActionCreator, deletePost, PostsType} from "./profileReducer";
+import profileReducer, {addPostActionCreator, deletePost, InitialStateType} from "./profileReducer";
 
-let state: PostsType = {
+let state: InitialStateType  = {
     posts: [
         {id:1, message: "Hi, how are you?", likeCount: 12},
         {id:23, message: "It's my first post", likeCount: 132}
     ],
     profile: null,
-    status: ""
+    status: "",
+    newPostText: '',
 }
 
 test('length should increment' , () => {

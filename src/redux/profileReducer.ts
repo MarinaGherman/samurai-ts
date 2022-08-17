@@ -8,12 +8,6 @@ export const SET_STATUS = 'SET_STATUS';
 export const DELETE_POST = 'DELETE_POST';
 export const SAVE_PHOTO = 'SAVE_PHOTO';
 
-
-export type PostType = {
-    id: number | null
-    message: string | null
-    likeCount:number
-}
 export type ProfileType = ProfileRequestType & {
     aboutMe?: string | undefined
 }
@@ -28,7 +22,7 @@ let initialState = {
     status: "",
     newPostText: '',
 }
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 
 const profileReducer = (state:InitialStateType = initialState, action: ProfileActionType):InitialStateType => {
 

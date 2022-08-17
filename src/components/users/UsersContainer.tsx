@@ -37,7 +37,7 @@ const UsersContainer =() => {
 
         dispatch(getUsersTC(currentPage, pageSize))
 
-    },[currentPage, pageSize])
+    },[currentPage, pageSize, dispatch])
 
         return <>
 
