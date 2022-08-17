@@ -3,6 +3,9 @@ import { NavLink } from 'react-router-dom';
 import s from './Header.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {logoutTC} from "../../redux/auth-reducer";
+import logo from './../../assets/images/main-logo.svg'
+import {Box, Grid} from '@mui/material';
+import ButtonComponent from "../common/ButtonComponent";
 
 
 
@@ -17,16 +20,33 @@ const Header = () => {
         return state.auth.login;
     })
 
-    return <header className={s.header}>
-        <img src='https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-dallas-shootings-don-add-are-speech-zones-used-4.png'  alt="img"/>
-        <div className={s.loginBlock}>
-            {isAuth
-                ?  <div>{login} -
-                        <button onClick={() => dispatch(logoutTC())}>LogOut</button>
+    return <Box className={s.header}>
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <div className={s.logo}>
+                        <img src={logo}  alt="img"/>
+                        <span className={s.logoText}>
+                            Social Network
+                         </span>
                     </div>
-                : <NavLink to={'./login'}>Login</NavLink>}
-        </div>
-    </header>
+                </Grid>
+                <Grid item xs={6}>
+                    <div className={s.loginBlock}>
+                        {isAuth
+                            ?  <div>{login}
+                                <ButtonComponent
+                                    title={'Logout'}
+                                    onClick={() => dispatch(logoutTC())}/>
+                            </div>
+                            : <NavLink to={'./login'}>
+                                <div className={s.login}>
+                                    Login
+                                </div>
+                            </NavLink>}
+                    </div>
+                </Grid>
+            </Grid>
+            </Box>
 }
 
 export default Header;

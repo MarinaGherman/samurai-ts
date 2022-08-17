@@ -1,11 +1,24 @@
 .header {
     grid-area: h;
     background-color: white;
+    height: 100%;
+    padding-top: 10px;
+    .logo {
+        display: flex;
+        align-items: center
+    }
+    .logoText {
+        margin-left: 20px;
+        color: #193fb4;
+    }
 }
 .header img {
-    width: 20px;
+    width: 30px;
 }
 
 .loginBlock {
     float: right;
+    .login {
+        color: #193fb4;
+    }
 }
