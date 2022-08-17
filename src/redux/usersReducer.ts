@@ -90,7 +90,6 @@ export type UserActionType = followSuccessACT | unfollowSuccessACT | setUsersACT
 
 //санки
 export const getUsersTC = (currentPage: number, pageSize: number) => async (dispatch: AppThunkDispatch) => {
-
     dispatch(toggleIsFetching(true));
     const { items, totalCount} = await usersAPI.getUsers(currentPage, pageSize)
     try {
@@ -101,15 +100,6 @@ export const getUsersTC = (currentPage: number, pageSize: number) => async (disp
         console.log("Error when you try get users", error)
         handleServerNetworkError(error, dispatch)
     }
-}
-
-const followUnfollowFlow = async (dispatch:AppThunkDispatch, userId: number, apiMethod:  any, actionCreator:any )=> {
-     dispatch(toggleFollowingProgress(true, userId))
-    let data = await  apiMethod(userId)
-    if(data.resultCode === 0) {
-        dispatch(actionCreator(userId))
-    }
-    dispatch(toggleFollowingProgress(false, userId))
 }
 
 export const followTC = (userId: number) => async (dispatch: AppThunkDispatch) => {
@@ -130,13 +120,23 @@ export const followTC = (userId: number) => async (dispatch: AppThunkDispatch) =
     }
 }
 
-export const unfollowTC = (userId:number) => {
-
-    return async (dispatch:AppThunkDispatch) => {
-        let apiMethod = usersAPI.unfollow.bind(usersAPI)
-         await followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
+export const unfollowTC = (userId:number) => async (dispatch: AppThunkDispatch) => {
+    dispatch(toggleFollowingProgress(true, userId));
+    let response = await usersAPI.unfollow(userId)
+    try {
+        if (response.data.resultCode === 0) {
+            dispatch(unfollowSuccess(userId));
+        } else{
+            dispatch(setAppErrorAC("Some error occupied"));
+            dispatch(setAppStatusAC("failed"));
+        }
+        dispatch(toggleFollowingProgress(false, userId));
+    } catch (error: any) {
+        console.log("Error when you try unfollow user", error)
+        handleServerNetworkError(error, dispatch)
     }
 }
+
 
 
 export default usersReducer;

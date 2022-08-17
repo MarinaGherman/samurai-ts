@@ -4,10 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import Loader from "../common/Loader";
 
 import {
-    followTC,
     setCurrentPage,
-    unfollowTC,
-    getUsersTC
+    getUsersTC, unfollowTC, followTC
 } from "../../redux/usersReducer";
 
 import Paginator from "./Paginator";
@@ -32,6 +30,13 @@ const UsersContainer =() => {
     const onPageChanged = (pageNumber:any) => {
         dispatch(setCurrentPage(pageNumber))
     }
+    const unfollow = (userId: number) => {
+        dispatch(unfollowTC(userId))
+    }
+
+    const follow = (userId: number) => {
+        dispatch(followTC(userId))
+    }
 
     useEffect(() => {
 
@@ -53,8 +58,9 @@ const UsersContainer =() => {
             {users.map((u:any) => <User user={u}
                 followingInProgress={followingInProgress}
                 key={u.id}
-                unfollow={() => dispatch(unfollowTC)}
-                follow={() => dispatch(followTC)}/>)}
+                onUnfollow={unfollow}
+                onFollow={follow}
+            />)}
 
         </>}
 
