@@ -20,6 +20,7 @@ const ProfileDataForm = ({handleSubmit,profile}:any) => {
                 <b>About me:</b> {createField("About me", Textarea,"aboutMe", [] )}
             </div>
                 <b>Contacts:</b>
+
             {Object.keys(profile.contacts).map(key => {
             return <div>
                            <b>{key}:</b>   {createField("key", Input,"contacts." + key, [] )}

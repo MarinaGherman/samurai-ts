@@ -37,25 +37,33 @@ const ProfileInfo = (props: ProfileInfoTypes) => {
 
     return (
         <Box className={s.main}>
-            <div className={s.imgBlock}>
-                {!props.profile.photos.large
-                    ? <img src={avatar} alt="img"/>
-                    : <img className={s.img} src={props.profile.photos.large} alt="img"/>
-                }
-                <div className={s.fileBlock}>
-                    {props.isOwner &&
-                        <label htmlFor="inputTag">
-                            <AddAPhotoTwoToneIcon/>
-                            <input type="file" id="inputTag" onChange={onMainPhotoSelected}/>
-                        </label>
-                    }
+            <Box>
+                <div className={s.cover}>
                 </div>
-            </div>
-            <h2>{props.profile.fullName}</h2>
-            <ProfileStatusWithHooks
-                status={props.status}
-                updateStatus={props.updateStatus}
-            />
+                <div className={s.imgBlock}>
+                    {!props.profile.photos.large
+                        ? <img src={avatar} alt="img"/>
+                        : <img className={s.img} src={props.profile.photos.large} alt="img"/>
+                    }
+                    <div className={s.fileBlock}>
+                        {props.isOwner &&
+                            <label htmlFor="inputTag">
+                                <AddAPhotoTwoToneIcon/>
+                                <input type="file" id="inputTag" onChange={onMainPhotoSelected}/>
+                            </label>
+                        }
+                    </div>
+                </div>
+            </Box>
+                <div className={s.profileBlock}>
+                    <span className={s.name}>{props.profile.fullName}</span>
+                    <ProfileStatusWithHooks
+                        status={props.status}
+                        updateStatus={props.updateStatus}
+                    />
+                </div>
+
+
             {editMode ?
                 <ProfileDataForm initialValues={props.profile} onSubmit={onSubmit}/> :
                 <ProfileData isOwner={props.isOwner}
@@ -66,20 +74,24 @@ const ProfileInfo = (props: ProfileInfoTypes) => {
     );
 };
 const Contact = ({contactTitle, contactValue}: any) => {
-    return <div><b>{contactTitle}</b>: <span>{contactValue}</span></div>
+    return <div>
+        <b>{contactTitle}</b>
+         <span>{contactValue}</span>
+    </div>
 }
 
 const ProfileData =({profile, isOwner, goToEditMode}:any) => {
     return  <div className={s.jobBlock}>
-        <div>
-            <b>Full name: </b> {profile.fullName}
-        </div>
+
         <div>
             <b>Looking for a job: </b> {profile.lookingForAJob ? "yes" : 'no'}
         </div>
-            <div>
-                <b>My skills:</b>  {profile.lookingForAJobDescription}
-            </div>
+        <div>
+            <b>My skills:</b>  {profile.lookingForAJobDescription}
+        </div>
+        <div>
+            <b>Full name: </b> {profile.fullName}
+        </div>
         <div>
             <b>About me:</b> {profile.aboutMe}
         </div>
