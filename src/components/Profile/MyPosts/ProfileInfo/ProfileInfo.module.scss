@@ -1,9 +1,33 @@
 
 .main {
-	margin-left: 10px;
+	padding: 10px;
+	background: white;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+
 }
-.profileInfo {
+.imgBlock {
+	text-align: center;
+	position: relative;
+	.img {
+		width: 120px;
+		border-radius: 50%;
+		border: 2px solid #ECF1F5;
+	}
+	.fileBlock {
+		position: absolute;
+		bottom: 0;
+		left: 55%;
+		input{
+			display: none;
+		}
+		label {
+			cursor: pointer;
+			color: #1A40B4;
+		}
+	}
 }
+
 .jobBlock {
 	position: relative;
 }
@@ -16,7 +40,7 @@
 	width: 140px;
 }
 .name {
-	color: blue;
+	color: #1A40B4;
 }
 .socialIcons {
 	width: 35px;

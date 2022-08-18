@@ -17,8 +17,6 @@ const ProfileContainer = ({ ...props }) => {
     const authorizedUserId = useSelector(state => state.auth.userId);
     // @ts-ignore
     const auth = useSelector(state => state.auth);
-    console.log(auth)
-
 
     useEffect(() => {
         if (authorizedUserId) {

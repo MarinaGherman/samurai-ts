@@ -5,6 +5,9 @@ import avatar from './../../../../assets/images/avatar.png'
 import ProfileStatusWithHooks from "../../ProfileStatusWithHooks";
 import {ProfileType, saveProfile} from "../../../../redux/profileReducer";
 import ProfileDataForm from "../../ProfileDataForm";
+import {Box} from "@mui/material";
+import AddAPhotoTwoToneIcon from '@mui/icons-material/AddAPhotoTwoTone';
+
 
 type ProfileInfoTypes = {
     profile: ProfileType
@@ -33,26 +36,33 @@ const ProfileInfo = (props: ProfileInfoTypes) => {
     }
 
     return (
-        <div className={s.main}>
-            {
-                !props.profile.photos.large ? <img src={avatar} alt="img"/> :
-                    <img src={props.profile.photos.large} alt="img"/>
-            }
-            {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
-            <div>Статус:</div>
+        <Box className={s.main}>
+            <div className={s.imgBlock}>
+                {!props.profile.photos.large
+                    ? <img src={avatar} alt="img"/>
+                    : <img className={s.img} src={props.profile.photos.large} alt="img"/>
+                }
+                <div className={s.fileBlock}>
+                    {props.isOwner &&
+                        <label htmlFor="inputTag">
+                            <AddAPhotoTwoToneIcon/>
+                            <input type="file" id="inputTag" onChange={onMainPhotoSelected}/>
+                        </label>
+                    }
+                </div>
+            </div>
+            <h2>{props.profile.fullName}</h2>
             <ProfileStatusWithHooks
                 status={props.status}
                 updateStatus={props.updateStatus}
             />
-
             {editMode ?
                 <ProfileDataForm initialValues={props.profile} onSubmit={onSubmit}/> :
                 <ProfileData isOwner={props.isOwner}
                              profile={props.profile}
                              goToEditMode={() => setEditMode(true)}/>
             }
-
-        </div>
+        </Box>
     );
 };
 const Contact = ({contactTitle, contactValue}: any) => {
