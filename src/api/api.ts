@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {ProfileType} from "../redux/profileReducer";
+import {LoginParamsType} from "../redux/auth-reducer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -54,6 +55,9 @@ export const profileAPI = {
     saveProfile(profile:string) {
         return instance.put(`profile/`,profile)
     },
+    updateProfile(profile: ProfileType){
+        return instance.put<AxiosResponse<RespType>,any>(`profile`, {...profile})
+    },
     savePhoto(photo:any) {
         const formData = new FormData();
         formData.append('image', photo);
@@ -69,8 +73,8 @@ export const profileAPI = {
 export const authAPI = {
     me() {
         return instance.get<RespType<AuthDataType>>(`auth/me`)},
-    login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<RespType<AuthDataType>>(`auth/login`,{email,password,rememberMe})},
+    login(data: LoginParamsType) {
+        return instance.post<RespType<AuthDataType>>(`auth/login`,data)},
     logout() {
         return instance.delete<RespType<AuthDataType>>(`auth/login`)},
 }

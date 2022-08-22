@@ -3,16 +3,14 @@ import { InjectedFormProps, reduxForm} from 'redux-form'
 import {Check, createField, Input} from "../common/formsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 
-import {loginTC} from "../../redux/auth-reducer";
+import {LoginParamsType, loginTC} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import s from '../common/formsControls/FormsControls.module.css'
 import {useDispatch, useSelector} from "react-redux";
 
 
 type formDataType = {
-    email: string
-    password: string
-    rememberMe:boolean
+   data: LoginParamsType
 }
 
 
@@ -51,7 +49,7 @@ const Login = () => {
 
 
     const onSubmit = (formData:formDataType) => {
-        dispatch(loginTC(formData.email, formData.password, formData.rememberMe))
+        dispatch(loginTC(formData.data))
     }
     if(isAuth) {
         return <Redirect to={'/profile'}/>

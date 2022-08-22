@@ -13,6 +13,7 @@ import {Grid} from "@mui/material";
 const Dialogs = React.lazy(() => import("./components/Dialogs/Dialogs"))
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
 const UsersContainer = React.lazy(() => import('./components/users/UsersContainer'))
+const Settings = React.lazy(() => import('./components/Settings/Settings'))
 
 const App = () => {
     const dispatch = useDispatch()
@@ -49,6 +50,13 @@ const App = () => {
                                 }} />
                                 {/*@ts-ignore*/}
                                 <Route path="/login" render={() => <Login/>} />
+                                {/*@ts-ignore*/}
+                                <Route path='/settings' render={() => {
+                                    return <React.Suspense fallback ={<Loader/>}>
+                                        <Settings/>
+                                    </React.Suspense>
+
+                                }}/>
                             </div>
                         </Grid>
 

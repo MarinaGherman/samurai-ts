@@ -48,10 +48,12 @@ const Navbar = ( ) => {
             </div>
         </div>
         <div className={`${s.item} ${s.active}`}>
-            <div className={s.navBlock}>
-                <span className={s.icon}><SettingsIcon/></span>
-                <span className={s.iconText}>Settings</span>
-            </div>
+            <NavLink to="/settings">
+                <div className={s.navBlock}>
+                    <span className={s.icon}><SettingsIcon/></span>
+                    <span className={s.iconText}>Settings</span>
+                </div>
+            </NavLink>
         </div>
     </nav>
 }

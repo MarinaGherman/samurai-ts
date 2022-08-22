@@ -1,6 +1,8 @@
 import { profileAPI, usersAPI} from "../api/api";
 import {PhotosType} from "./usersReducer";
-import {AppThunkDispatch} from "./redux-store";
+import {AppStoreType, AppThunkDispatch} from "./redux-store";
+import {setAppStatusAC} from "./app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../utils/errorUtils";
 
 export const ADD_POST = 'ADD-POST';
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -9,13 +11,14 @@ export const DELETE_POST = 'DELETE_POST';
 export const SAVE_PHOTO = 'SAVE_PHOTO';
 
 export type ProfileType = {
-    userId: number
+    userId:  string | number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    contacts: ContactsRequestType
-    photos: PhotoRequestType
     aboutMe?: string | undefined
+    contacts: ContactsRequestType
+    photos?: PhotoRequestType
+
 }
 
 export type ContactsRequestType = {
@@ -118,7 +121,7 @@ export type ProfileActionType = addPostActionCreatorACT | setUserProfileACT | se
 
 
 //thunk creator
-export let getUserProfile = (userId:number) => async (dispatch:AppThunkDispatch) => {
+export let getUserProfile = (userId:any) => async (dispatch:AppThunkDispatch) => {
     let response = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(response.data));
 
@@ -146,6 +149,24 @@ export let saveProfile = (profile:any) => async (dispatch:AppThunkDispatch, getS
     let response = await profileAPI.saveProfile(profile)
     if(response.data.resultCode === 0) {
         await dispatch(getUserProfile(userId))
+    }
+}
+export const updateProfileTC = (profile: ProfileType) => async (dispatch: AppThunkDispatch, getState: () => AppStoreType) => {
+
+    dispatch(setAppStatusAC("loading"));
+
+    const userId = getState().auth.data.userId
+    try {
+        let res = await profileAPI.updateProfile(profile)
+        if (res.data.resultCode === 0) {
+            await dispatch( getUserProfile(userId))
+            dispatch(setAppStatusAC("succeeded"));
+        } else {
+            handleServerAppError(res.data, dispatch);
+        }
+    } catch (error: any) {
+        console.log("Error when you try update profile", error)
+        handleServerNetworkError(error, dispatch)
     }
 }
 

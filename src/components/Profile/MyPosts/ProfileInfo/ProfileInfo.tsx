@@ -35,14 +35,18 @@ const ProfileInfo = (props: ProfileInfoTypes) => {
         setEditMode(false)
     }
 
+
     return (
         <Box className={s.main}>
             <Box>
                 <div className={s.cover}>
                 </div>
                 <div className={s.imgBlock}>
-                    {!props.profile.photos.large
+
+                    {  // @ts-ignore
+                        !props.profile.photos.large
                         ? <img src={avatar} alt="img"/>
+                        // @ts-ignore
                         : <img className={s.img} src={props.profile.photos.large} alt="img"/>
                     }
                     <div className={s.fileBlock}>
